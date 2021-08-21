@@ -38,36 +38,9 @@ function App() {
             value={formValues.cargo || ''} />
         </div>
 
-        {/*   <div className="full-box">
-          <label htmlFor="email">E-mail</label>
-          <input type="email" name="email" id="email" placeholder="" />
-        </div> */}
-
-        <div className="data-nascimento">
-          <label >Data de Nascimento</label>
-          <select name="mesNascimento" onChange={handleInputChange}
-            value={formValues.mesNascimento || ''}>
-            <option value="empty">Mês</option>
-            <option value="janeiro">janeiro</option>
-            <option value="fevereiro">fevereiro</option>
-            <option value="marco">março</option>
-          </select>
-
-          <select name="diaNascimento" onChange={handleInputChange}
-            value={formValues.diaNascimento || ''}>
-            <option value="empty">Dia</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-
-          <select name="anoNascimento" onChange={handleInputChange}
-            value={formValues.anoNascimento || ''}>
-            <option value="empty" >Ano</option>
-            <option value="1970">1970</option>
-            <option value="1970">1970</option>
-            <option value="1970">1970</option>
-          </select>
+        <div className="dataNascimento">
+          <label htmlFor="nascimento">Data de Nascimento</label>
+          <input type="date" id="nascimento" name="nascimento" onChange={handleInputChange} value={formValues.nascimento || ''} />
         </div>
 
         <div className="estado-civil">
