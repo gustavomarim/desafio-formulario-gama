@@ -1,8 +1,17 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import TrackCep from './TrackCep';
 
 function App() {
 
+  const [events, setEvents] = useState([])
+
+  const convertToArray = (obj) => {
+    const arr = [obj]
+    return arr
+  }
+
+  // Seta todos os valores dentro de objetos
   const [formValues, setFormValues] = useState({})
 
   const handleInputChange = (e) => {
@@ -16,15 +25,25 @@ function App() {
     const data = Object.fromEntries(formData) // Obj com todos os dados do form
 
     console.log('handleSubmit', data);
+
+    fetch(`http://localhost:3001/?cep=${data.cep}`)
+      .then(response => response.json())
+      .then(data => {
+        const array = convertToArray(data)
+        console.log(array);
+        setEvents(array)
+      })
+      .catch(error => console.error)
   }
 
   console.log('formValues', formValues);
 
   return (
-    <div id="main-container" onSubmit={handleSubmit} >
-      <h1>Cadastro de Currículo</h1>
 
-      <form id="register-form">
+    <div id="main-container" onSubmit={handleSubmit} >
+      <h1>Cadastro de Currículo - JobsNET</h1>
+
+      <form id="register-form" >
 
         <div className="half-box" >
           <label htmlFor="name">Nome</label>
@@ -47,7 +66,7 @@ function App() {
           <label id="estado-civil">Estado Civíl</label>
           <select name="estadoCivil" onChange={handleInputChange}
             value={formValues.estadoCivil || ''} >
-            <option value="empty"></option>
+            <option value="estadoCivil-vazio"></option>
             <option value="solteiro">Solteiro</option>
             <option value="casado">Casado</option>
             <option value="divorciado">Divorciado</option>
@@ -58,9 +77,9 @@ function App() {
           <label >Sexo</label>
           <select name="sexo" onChange={handleInputChange}
             value={formValues.sexo || ''} >
-            <option value="empty"></option>
+            <option value="sexo-vazio"></option>
             <option value="masculino">Masculino</option>
-            <option value="feminino">Feminino</option>
+            <option value="feminino">cFeminino</option>
           </select>
         </div>
 
@@ -81,8 +100,11 @@ function App() {
         </div>
 
         <div className="triple-box">
-          <label >CEP</label>
-          <input type="text" name="cep" id="cep" onChange={handleInputChange} value={formValues.cep || ''} />
+          <div className="form-group">
+            <label >CEP</label>
+            <input type="text" name="cep" id="cep" onChange={handleInputChange} value={formValues.cep || ''} />
+            <TrackCep events={events} />
+          </div>
         </div>
 
         <div className="triple-box">
@@ -126,7 +148,7 @@ function App() {
           <label id="veiculo">Possui Veículo</label>
           <select name="veiculo" onChange={handleInputChange}
             value={formValues.veiculo || ''}>
-            <option value="empty"></option>
+            <option value="veiculo-vazio"></option>
             <option value="veiculo-sim">Sim</option>
             <option value="veiculo-nao">Não</option>
           </select>
@@ -136,7 +158,7 @@ function App() {
           <label id="veiculo">Habilitação</label>
           <select name="categoriaCnh" onChange={handleInputChange}
             value={formValues.categoriaCnh || ''}>
-            <option value="categoria">Categoria</option>
+            <option value="categoria-vazia">Categoria</option>
             <option value="categoria-a">A</option>
             <option value="categoria-b">B</option>
             <option value="categoria-c">C</option>
