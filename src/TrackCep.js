@@ -6,7 +6,7 @@ function TrackCep({ events }) {
     if (!events || events.length === 0) return null
     return (
         <>
-            <h1>CEP encontrado!</h1>
+            <p><strong>CEP encontrado!</strong></p>
             {/* <ul>
                 {events.map(item =>
                     <li key={item.cep}>
