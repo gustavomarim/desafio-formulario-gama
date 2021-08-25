@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import './App.css';
 import TrackCep from './TrackCep';
+import { useForm } from "react-hook-form";
 
 function App() {
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => console.log(data);
 
   const [events, setEvents] = useState([])
 
@@ -19,12 +23,12 @@ function App() {
     setFormValues({ ...formValues, [name]: value })
   }
 
-  const handleSubmit = (e) => {
+  const handleeSubmit = e => {
     e.preventDefault()
     const formData = new FormData(e.target)
     const data = Object.fromEntries(formData) // Obj com todos os dados do form
 
-    console.log('handleSubmit', data);
+    console.log('handleeSubmit', data);
 
     fetch(`http://localhost:3001/?cep=${data.cep}`)
       .then(response => response.json())
@@ -40,15 +44,17 @@ function App() {
 
   return (
 
-    <div id="main-container" onSubmit={handleSubmit} >
+    <div id="main-container" onSubmit={handleeSubmit} >
       <h1>Cadastro de Currículo - JobsNET</h1>
 
-      <form id="register-form" >
+      <form id="register-form" onSubmit={handleSubmit(onSubmit)} >
 
         <div className="half-box" >
           <label htmlFor="name">Nome</label>
-          <input type="text" name="nome" id="nome" placeholder="Digite seu nome completo"
-            onChange={handleInputChange} value={formValues.nome || ''} />
+          <input {...register("nome", {
+            required: true
+          })} />
+          {errors.nome && <span>Campo obrigatório</span>}
         </div>
 
         <div className="half-box" >
@@ -141,7 +147,12 @@ function App() {
 
         <div className="quarter-box">
           <label >CPF</label>
-          <input type="text" name="cpf" id="cpf" onChange={handleInputChange} value={formValues.cpf || ''} />
+          {/*   <input type="text" name="cpf" id="cpf" onChange={handleInputChange} value={formValues.cpf || ''} />
+        </div> */}
+          <input {...register("cpf", {
+            required: true
+          })} onChange={handleInputChange} value={formValues.cpf || ''} />
+          {errors.cpf && <span >Campo obrigatório</span>}
         </div>
 
         <div className="quarter-box" >
