@@ -2,33 +2,47 @@ import React, { useState } from 'react';
 import './App.css';
 import TrackCep from './TrackCep';
 import { useForm } from "react-hook-form";
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+
+
 
 function App() {
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+  const schema = yup.object().shape({
+    nome: yup.string('Digite um nome válido').required('Campo obrigatório'),
+    cargo: yup.string('Digite um cargo válido').required('Campo Profissão obrigatório'),
+    // // dataNasc:  ,
+    estadoCivil: yup.string(),
+    // // sexo: yup.required('Campo Sexo obrigatório'),
+    endereco: yup.string().required('Campo endereço obrigatório'),
+    bairro: yup.string().required('Campo Bairro obrigatório'),
+    cidade: yup.string('Digite uma cidade válida').min(2, 'Cidade precisa de no mínimo 2 caracteres').required('Campo Cidade obrigatório'),
+    cpf: yup.string().matches(/^(\d{3}\.){2}\d{3}\-\d{2}$/, 'Digite um CPF válido').required('Campo CPF obrigatório'),
+    // telefone1: yup.number('Digite um número de telefone válido'),
+    // telefone2: yup.number('Digite um número de telefone válido'),
+    celular: yup.string('Digite um número de celular válido').required('Campo celular obrigatório'),
+    contato: yup.string('Digite um nome de contato válido'),
+    email: yup.string('Digite um e-mail válido')
+      .email('Digite um email: ex...').required('Campo e-mail Obrigatório'),
+    // identidade: yup.number(11,'Digite um número de RG válido'),
+    // // cpf: ADICIONAR/TESTAR O FETCH AQUI,
+    possuiVeiculo: yup.string(),
+    categoriaCNH: yup.string(),
+  })
 
-  const [events, setEvents] = useState([])
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const convertToArray = (obj) => {
     const arr = [obj]
     return arr
   }
 
-  // Seta todos os valores dentro de objetos
-  const [formValues, setFormValues] = useState({})
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormValues({ ...formValues, [name]: value })
-  }
-
-  const handleeSubmit = e => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const data = Object.fromEntries(formData) // Obj com todos os dados do form
-
-    console.log('handleeSubmit', data);
+  const onSubmit = data => {
+    console.log('dados do onSubmit', data);
 
     fetch(`http://localhost:3001/?cep=${data.cep}`)
       .then(response => response.json())
@@ -40,135 +54,163 @@ function App() {
       .catch(error => console.error)
   }
 
-  console.log('formValues', formValues);
+  const [events, setEvents] = useState([])
+
+
+  // Seta todos os valores dentro de objetos
+  const [formValues, setFormValues] = useState({})
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormValues({ ...formValues, [name]: value })
+  }
+
+  // const handleeSubmit = e => {
+  //   e.preventDefault()
+  //   const formData = new FormData(e.target)
+  //   const data = Object.fromEntries(formData) // Obj com todos os dados do form
+
+  //   console.log('handleeSubmit', data);
+
+  //   fetch(`http://localhost:3001/?cep=${data.cep}`)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       const array = convertToArray(data)
+  //       console.log(array);
+  //       setEvents(array)
+  //     })
+  //     .catch(error => console.error)
+  // }
+
+  // console.log('formValues', formValues);
 
   return (
 
-    <div id="main-container" onSubmit={handleeSubmit} >
+    <div id="main-container" >
       <h1>Cadastro de Currículo - JobsNET</h1>
 
       <form id="register-form" onSubmit={handleSubmit(onSubmit)} >
 
         <div className="half-box" >
           <label htmlFor="name">Nome</label>
-          <input {...register("nome", {
-            required: true
-          })} />
-          {errors.nome && <span>Campo obrigatório</span>}
+          <input {...register("nome")} />
+          {errors?.nome?.message}
         </div>
 
         <div className="half-box" >
           <label htmlFor="cargo" >Cargo Pretendido</label>
-          <input type="text" name="cargo" id="cargo" onChange={handleInputChange}
-            value={formValues.cargo || ''} />
+          <input {...register("cargoPretendido")} />
+          {errors?.cargoPretendido?.message}
         </div>
 
         <div className="dataNascimento">
           <label htmlFor="nascimento">Data de Nascimento</label>
-          <input type="date" id="nascimento" name="nascimento" onChange={handleInputChange} value={formValues.nascimento || ''} />
+          <input {...register("dataNasc")} />
+          {errors?.dataNasc?.message}
         </div>
 
         <div className="estado-civil">
-          <label id="estado-civil">Estado Civíl</label>
-          <select name="estadoCivil" onChange={handleInputChange}
-            value={formValues.estadoCivil || ''} >
-            <option value="estadoCivil-vazio"></option>
+          <label id="e1stado-civil">Estado Civíl</label>
+          <select {...register("estadoCivil")} name="estadoCivil">
             <option value="solteiro">Solteiro</option>
             <option value="casado">Casado</option>
             <option value="divorciado">Divorciado</option>
           </select>
+          {errors?.estadoCivil?.message}
         </div>
 
         <div className="sexo">
           <label >Sexo</label>
-          <select name="sexo" onChange={handleInputChange}
-            value={formValues.sexo || ''} >
-            <option value="sexo-vazio"></option>
+          <select {...register("sexo")} name="sexo" >
             <option value="masculino">Masculino</option>
-            <option value="feminino">cFeminino</option>
+            <option value="feminino">Feminino</option>
           </select>
+          {errors?.sexo?.message}
         </div>
 
         <div className="full-box" >
           <label>Endereço</label>
-          <input type="text" name="endereco" id="endereco" placeholder="ex: Nome da Rua, nº. Bloco nº, AP nº"
-            onChange={handleInputChange} value={formValues.endereco || ''} />
+          <input {...register("endereco")} />
+          {errors?.endereco?.message}
         </div>
 
         <div className="half-box" >
           <label >Bairro</label>
-          <input type="text" name="bairro" id="bairro" onChange={handleInputChange} value={formValues.bairro || ''} />
+          <input {...register("bairro")} />
+          {errors?.bairro?.message}
         </div>
 
         <div className="half-box" >
           <label >Cidade</label>
-          <input type="text" name="cidade" id="cidade" onChange={handleInputChange} value={formValues.cidade || ''} />
+          <input {...register("cidade")} />
+          {errors?.cidade?.message}
         </div>
 
         <div className="triple-box">
           <div className="form-group">
             <label >CEP</label>
-            <input type="text" name="cep" id="cep" onChange={handleInputChange} value={formValues.cep || ''} />
-            <TrackCep events={events} />
+            <input {...register("cep")} />
+            {/* <TrackCep events={events} /> */}
+            {errors?.cep?.message}
           </div>
         </div>
 
         <div className="triple-box">
           <label >Telefone Fixo 1</label>
-          <input type="text" name="telefone1" id="telefone1" onChange={handleInputChange} value={formValues.telefone1 || ''} />
+          <input {...register("telefone1")} />
+          {errors?.telefone1?.message}
         </div>
 
         <div className="triple-box">
           <label >Telefone Fixo 2</label>
-          <input type="text" name="telefone2" id="telefone2" onChange={handleInputChange} value={formValues.telefone2 || ''} />
+          <input {...register("telefone2")} />
+          {errors?.telefone2?.message}
         </div>
 
         <div className="triple-box">
           <label >Celular</label>
-          <input type="text" name="celular" id="celular" onChange={handleInputChange} value={formValues.celular || ''} />
+          <input {...register("celular")} />
+          {errors?.celular?.message}
         </div>
 
         <div className="triple-box">
           <label >Contato</label>
-          <input type="text" name="contato" id="contato" onChange={handleInputChange} value={formValues.contato || ''} />
+          <input {...register("contato")} />
+          {errors?.contato?.message}
         </div>
 
         <div className="triple-box">
           <label htmlFor="email">E-mail</label>
-          <input type="email" name="email" id="email" placeholder="ex: example@myname.com" onChange={handleInputChange} value={formValues.email || ''} />
+          <input {...register("email")} />
+          {errors?.email?.message}
         </div>
 
         {/* <h1 id="documentos">Documentos</h1> */}
 
         <div className="quarter-box">
           <label htmlFor="identidade">Identidade</label>
-          <input type="text" name="identidade" id="identidade" onChange={handleInputChange} value={formValues.identidade || ''} />
+          <input {...register("identidade")} />
+          {errors?.identidade?.message}
         </div>
 
         <div className="quarter-box">
           <label >CPF</label>
-          {/*   <input type="text" name="cpf" id="cpf" onChange={handleInputChange} value={formValues.cpf || ''} />
-        </div> */}
-          <input {...register("cpf", {
-            required: true
-          })} onChange={handleInputChange} value={formValues.cpf || ''} />
-          {errors.cpf && <span >Campo obrigatório</span>}
+          <input {...register("cpf")} />
+          {errors?.cpf?.message}
         </div>
 
         <div className="quarter-box" >
           <label id="veiculo">Possui Veículo</label>
-          <select name="veiculo" onChange={handleInputChange}
-            value={formValues.veiculo || ''}>
-            <option value="veiculo-vazio"></option>
-            <option value="veiculo-sim">Sim</option>
-            <option value="veiculo-nao">Não</option>
+          <select {...register("possuiVeiculo")} name="possuiVeiculo" >
+            <option value="nao">Não</option>
+            <option value="sim">Sim</option>
           </select>
+          {errors?.possuiVeiculo?.message}
         </div>
 
         <div className="quarter-box" >
           <label id="veiculo">Habilitação</label>
-          <select name="categoriaCnh" onChange={handleInputChange}
-            value={formValues.categoriaCnh || ''}>
+          <select {...register("categoriaCNH")} name="categoriaCNH" >
             <option value="categoria-vazia">Categoria</option>
             <option value="categoria-a">A</option>
             <option value="categoria-b">B</option>
@@ -176,6 +218,7 @@ function App() {
             <option value="categoria-d">D</option>
             <option value="categoria-e">E</option>
           </select>
+          {errors?.categoriaCNH?.message}
         </div>
 
         <div className="full-box">
