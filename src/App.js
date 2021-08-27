@@ -5,29 +5,26 @@ import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-
-
-
 function App() {
 
   const schema = yup.object().shape({
-    nome: yup.string('Digite um nome válido').required('Campo obrigatório'),
-    cargo: yup.string('Digite um cargo válido').required('Campo Profissão obrigatório'),
-    // // dataNasc:  ,
+    nome: yup.string('Digite um nome válido'), //.required('Campo obrigatório'),
+    cargoPretendido: yup.string('Digite um cargo válido'), //.required('Campo Profissão obrigatório'),
+    dataNasc: yup.string(),
     estadoCivil: yup.string(),
-    // // sexo: yup.required('Campo Sexo obrigatório'),
-    endereco: yup.string().required('Campo endereço obrigatório'),
-    bairro: yup.string().required('Campo Bairro obrigatório'),
-    cidade: yup.string('Digite uma cidade válida').min(2, 'Cidade precisa de no mínimo 2 caracteres').required('Campo Cidade obrigatório'),
-    cpf: yup.string().matches(/^(\d{3}\.){2}\d{3}\-\d{2}$/, 'Digite um CPF válido').required('Campo CPF obrigatório'),
+    sexo: yup.string(),
+    endereco: yup.string(),//.required('Campo endereço obrigatório'),
+    bairro: yup.string(),//.required('Campo Bairro obrigatório'),
+    cidade: yup.string('Digite uma cidade válida'),//.min(2, 'Cidade precisa de no mínimo 2 caracteres'),//.required('Campo Cidade obrigatório'),
+    cpf: yup.string().matches(/^(\d{3}){2}\d{3}\d{2}$/, 'Digite um CPF válido'),//.required('Campo CPF obrigatório'),
     // telefone1: yup.number('Digite um número de telefone válido'),
     // telefone2: yup.number('Digite um número de telefone válido'),
-    celular: yup.string('Digite um número de celular válido').required('Campo celular obrigatório'),
+    celular: yup.string('Digite um número de celular válido'),//.required('Campo celular obrigatório'),
     contato: yup.string('Digite um nome de contato válido'),
     email: yup.string('Digite um e-mail válido')
-      .email('Digite um email: ex...').required('Campo e-mail Obrigatório'),
+      .email('Digite um email: ex...'),//.required('Campo e-mail Obrigatório'),
     // identidade: yup.number(11,'Digite um número de RG válido'),
-    // // cpf: ADICIONAR/TESTAR O FETCH AQUI,
+    cep: yup.string(),
     possuiVeiculo: yup.string(),
     categoriaCNH: yup.string(),
   })
@@ -42,6 +39,7 @@ function App() {
   }
 
   const onSubmit = data => {
+
     console.log('dados do onSubmit', data);
 
     fetch(`http://localhost:3001/?cep=${data.cep}`)
@@ -56,33 +54,13 @@ function App() {
 
   const [events, setEvents] = useState([])
 
-
   // Seta todos os valores dentro de objetos
-  const [formValues, setFormValues] = useState({})
+  // const [formValues, setFormValues] = useState({})
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormValues({ ...formValues, [name]: value })
-  }
-
-  // const handleeSubmit = e => {
-  //   e.preventDefault()
-  //   const formData = new FormData(e.target)
-  //   const data = Object.fromEntries(formData) // Obj com todos os dados do form
-
-  //   console.log('handleeSubmit', data);
-
-  //   fetch(`http://localhost:3001/?cep=${data.cep}`)
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       const array = convertToArray(data)
-  //       console.log(array);
-  //       setEvents(array)
-  //     })
-  //     .catch(error => console.error)
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target
+  //   setFormValues({ ...formValues, [name]: value })
   // }
-
-  // console.log('formValues', formValues);
 
   return (
 
@@ -105,16 +83,17 @@ function App() {
 
         <div className="dataNascimento">
           <label htmlFor="nascimento">Data de Nascimento</label>
-          <input {...register("dataNasc")} />
+          <input {...register("dataNasc")} type="date" />
           {errors?.dataNasc?.message}
         </div>
 
         <div className="estado-civil">
           <label id="e1stado-civil">Estado Civíl</label>
           <select {...register("estadoCivil")} name="estadoCivil">
-            <option value="solteiro">Solteiro</option>
-            <option value="casado">Casado</option>
-            <option value="divorciado">Divorciado</option>
+            <option value="solteiro(a)">Solteiro(a)</option>
+            <option value="casado(a)">Casado(a)</option>
+            <option value="divorciado(a)">Divorciado(a)</option>
+            <option value="outros">Outros</option>
           </select>
           {errors?.estadoCivil?.message}
         </div>
@@ -122,8 +101,10 @@ function App() {
         <div className="sexo">
           <label >Sexo</label>
           <select {...register("sexo")} name="sexo" >
+            <option >Escolha seu gênero</option>
             <option value="masculino">Masculino</option>
             <option value="feminino">Feminino</option>
+            <option value="outros">Outros</option>
           </select>
           {errors?.sexo?.message}
         </div>
@@ -149,8 +130,8 @@ function App() {
         <div className="triple-box">
           <div className="form-group">
             <label >CEP</label>
-            <input {...register("cep")} />
-            {/* <TrackCep events={events} /> */}
+            <input {...register("cep")} id="cep" />
+            <TrackCep events={events} />
             {errors?.cep?.message}
           </div>
         </div>
@@ -231,3 +212,23 @@ function App() {
 }
 
 export default App;
+
+
+  // const handleeSubmit = e => {
+  //   e.preventDefault()
+  //   const formData = new FormData(e.target)
+  //   const data = Object.fromEntries(formData) // Obj com todos os dados do form
+
+  //   console.log('handleeSubmit', data);
+
+  //   fetch(`http://localhost:3001/?cep=${data.cep}`)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       const array = convertToArray(data)
+  //       console.log(array);
+  //       setEvents(array)
+  //     })
+  //     .catch(error => console.error)
+  // }
+
+  // console.log('formValues', formValues);
