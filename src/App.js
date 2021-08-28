@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import TrackCep from './TrackCep';
+import TrackCep from './components/TrackCep';
 import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -46,7 +46,7 @@ function App() {
       .then(response => response.json())
       .then(data => {
         const array = convertToArray(data)
-        console.log(array);
+        console.log('array', array);
         setEvents(array)
       })
       .catch(error => console.error)
