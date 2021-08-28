@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import TrackCep from './components/TrackCep';
 import { useForm } from "react-hook-form";
@@ -17,13 +17,13 @@ function App() {
     bairro: yup.string(),//.required('Campo Bairro obrigatório'),
     cidade: yup.string('Digite uma cidade válida'),//.min(2, 'Cidade precisa de no mínimo 2 caracteres'),//.required('Campo Cidade obrigatório'),
     cpf: yup.string().matches(/^(\d{3}){2}\d{3}\d{2}$/, 'Digite um CPF válido'),//.required('Campo CPF obrigatório'),
-    // telefone1: yup.number('Digite um número de telefone válido'),
-    // telefone2: yup.number('Digite um número de telefone válido'),
+    // telefone1: yup.string('Digite um número de telefone válido'),
+    // telefone2: yup.string('Digite um número de telefone válido'),
     celular: yup.string('Digite um número de celular válido'),//.required('Campo celular obrigatório'),
     contato: yup.string('Digite um nome de contato válido'),
     email: yup.string('Digite um e-mail válido')
       .email('Digite um email: ex...'),//.required('Campo e-mail Obrigatório'),
-    // identidade: yup.number(11,'Digite um número de RG válido'),
+    // identidade: yup.string('Digite um número de RG válido'),
     cep: yup.string(),
     possuiVeiculo: yup.string(),
     categoriaCNH: yup.string(),
@@ -50,8 +50,6 @@ function App() {
         setEvents(array)
       })
       .catch(error => console.error);
-
-
   }
 
   const [events, setEvents] = useState([])
@@ -72,7 +70,7 @@ function App() {
       <form id="register-form" onSubmit={handleSubmit(onSubmit)} >
 
         <div className="half-box" >
-          <label htmlFor="name">Nome</label>
+          <label htmlFor="name">Nome Completo *</label>
           <input {...register("nome")} />
           {errors?.nome?.message}
         </div>

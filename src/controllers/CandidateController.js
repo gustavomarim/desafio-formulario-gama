@@ -3,7 +3,7 @@ const Candidate = require('../models/Candidate');
 module.exports = {
     async register(req, res) {
 
-        // Adicionar campos do Form
+        // Campos do formulário
         const {
             nome,
             cargoPretendido,
@@ -27,7 +27,7 @@ module.exports = {
 
         const newCandidate = new Candidate();
 
-        // Adicionar campos do form
+        // Instanciando campos do formulário
         newCandidate.nome = nome;
         newCandidate.cargoPretendido = cargoPretendido;
         newCandidate.dataNasc = dataNasc;
@@ -46,7 +46,6 @@ module.exports = {
         newCandidate.cep = cep;
         newCandidate.possuiVeiculo = possuiVeiculo;
         newCandidate.categoriaCNH = categoriaCNH;
-
 
 
         newCandidate.save((err, savedCandidate) => {

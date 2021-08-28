@@ -10,13 +10,15 @@
 
 input,
 label {
-  display: block;
-  outline: none;
-  width  : 100%;
+  display    : block;
+  outline    : none;
+  width      : 100%;
+  font-family: Helvetica, sans-serif;
 }
 
 body {
-  background-color: gray;
+  background-color: #8EC5FC;
+  background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
 }
 
 #main-container {
@@ -36,7 +38,7 @@ body {
 
 #cep {
   margin-top: 0;
-  padding   : 4px;
+  padding   : 3px;
 }
 
 form {
@@ -67,7 +69,8 @@ form {
 
 label {
   font-weight: bold;
-  font-size  : .8rem;
+  font-size  : 1rem;
+
 }
 
 input {

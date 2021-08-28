@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Adicionar os campos do Form
+// Validando campos do formulário pelo Back-end
 const CandidateSchema = new mongoose.Schema({
     nome: { type: String, unique: false, required: true },
     cargoPretendido: { type: String, unique: false, required: false },
@@ -25,24 +25,3 @@ const CandidateSchema = new mongoose.Schema({
     timestamps: true
 });
 module.exports = mongoose.model('Candidate', CandidateSchema);
-
-/*
-            nome,
-            cargoPretendido,
-            dataNasc required,
-            estadoCivil,
-            sexo,
-            endereco required,
-            bairro required,
-            cidade required,
-            cpf required,
-            telefone1,
-            telefone2,
-            celular,
-            contato,
-            email,
-            identidade,
-            cep required,
-            possuiVeiculo,
-            categoriaCNH
-             */
