@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API do projetinho massa",
-        "description": "essa é a api massa do projetinho massa",
+        "title": "API do projeto Formulário de Cadastro - Gama",
+        "description": "essa é a api do projeto Formulário de Cadastro - Gama",
         "version": "0.0.1"
     },
     "servers": [
@@ -15,7 +15,7 @@
         "/register": {
             "post": {
                 "summary": "Cadastro de candidato",
-                "description": "Rota de cadastro de usuário, recebe: nome, genêro, email e cep",
+                "description": "Rota de cadastro de usuário, recebe: os principais dados para o cadastro de usuário",
                 "tags": [
                     "candidato"
                 ],
@@ -24,28 +24,84 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "name": {
+                                    "nome": {
                                         "type": "string"
                                     },
-                                    "gender": {
+                                    "cargoPretendido": {
+                                        "type": "string"
+                                    },
+                                    "dataNasc": {
+                                        "type": "string"
+                                    },
+                                    "estadoCivil": {
+                                        "type": "string"
+                                    },
+                                    "sexo": {
+                                        "type": "string"
+                                    },
+                                    "endereco": {
+                                        "type": "string"
+                                    },
+                                    "bairro": {
+                                        "type": "string"
+                                    },
+                                    "cidade": {
+                                        "type": "string"
+                                    },
+                                    "cpf": {
+                                        "type": "string"
+                                    },
+                                    "telefone1": {
+                                        "type": "string"
+                                    },
+                                    "telefone2": {
+                                        "type": "string"
+                                    },
+                                    "celular": {
+                                        "type": "string"
+                                    },
+                                    "contato": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "identidade": {
                                         "type": "string"
                                     },
                                     "cep": {
                                         "type": "string"
                                     },
-                                    "email": {
+                                    "possuiVeiculo": {
+                                        "type": "string"
+                                    },
+                                    "categoriaCNH": {
                                         "type": "string"
                                     }
                                 }
-                            },
-                            "examples": {
-                                "eu mermo": {
-                                    "value": {
-                                        "name": "Pedro Sato",
-                                        "gender": "Masculino Cis",
-                                        "cep": "00000-000",
-                                        "email": "pedro.hiro@gmail.com"
-                                    }
+                            }
+                        },
+                        "examples": {
+                            "Cadastro teste": {
+                                "value": {
+                                    "nome": "Gustavo Dantas",
+                                    "cargoPretendido": "Developer Front-end",
+                                    "dataNasc": "1995/07/04",
+                                    "estadoCivil": "Solteiro",
+                                    "sexo": "Masculino",
+                                    "endereco": "Travessa Oceano",
+                                    "bairro": "Jardim São Savério",
+                                    "cidade": "SP",
+                                    "cpf": "00000000000",
+                                    "telefone1": "não possui",
+                                    "telefone2": "Não possui",
+                                    "celular": "00000000000",
+                                    "contato": "Gustavo",
+                                    "email": "email@exemplo.com",
+                                    "identidade": "000000000",
+                                    "cep": "04194-480",
+                                    "possuiVeiculo": "Sim",
+                                    "categoriaCNH": "B"
                                 }
                             }
                         }

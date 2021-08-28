@@ -49,7 +49,9 @@ function App() {
         console.log('array', array);
         setEvents(array)
       })
-      .catch(error => console.error)
+      .catch(error => console.error);
+
+
   }
 
   const [events, setEvents] = useState([])
