@@ -68,12 +68,12 @@ function App() {
   const createCandidate = async () => {
     console.log('você está no createCandidate')
     // mongodb+srv://GustavoDantas:190713@cluster0.bachh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-    const user = await axios.post('http://localhost:5000/register', formValues); // post recebe um obj
+    const user = await axios.post('mongodb+srv://GustavoDantas:190713@cluster0.bachh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', formValues); // post recebe um obj
     if (user.status === 200) {
-      alert('Funcionou')
+      alert('Cadastro realizado com sucesso!')
       console.log('Requisição POST realizada com Sucesso!');
     } else {
-      alert('Não funcionou')
+      alert('Cadastro não realizado!')
       console.log('Requisição POST negada!');
     }
   };
