@@ -10,7 +10,7 @@ module.exports = {
             dataNasc,
             estadoCivil,
             sexo,
-            endereco,
+            logradouro,
             bairro,
             cidade,
             cpf,
@@ -33,7 +33,7 @@ module.exports = {
         newCandidate.dataNasc = dataNasc;
         newCandidate.estadoCivil = estadoCivil;
         newCandidate.sexo = sexo;
-        newCandidate.endereco = endereco;
+        newCandidate.logradouro = logradouro;
         newCandidate.bairro = bairro;
         newCandidate.cidade = cidade;
         newCandidate.cpf = cpf;

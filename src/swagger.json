@@ -39,7 +39,7 @@
                                     "sexo": {
                                         "type": "string"
                                     },
-                                    "endereco": {
+                                    "logradouro": {
                                         "type": "string"
                                     },
                                     "bairro": {
@@ -89,7 +89,7 @@
                                     "dataNasc": "1995/07/04",
                                     "estadoCivil": "Solteiro",
                                     "sexo": "Masculino",
-                                    "endereco": "Travessa Oceano",
+                                    "logradouro": "Travessa Oceano",
                                     "bairro": "Jardim São Savério",
                                     "cidade": "SP",
                                     "cpf": "00000000000",

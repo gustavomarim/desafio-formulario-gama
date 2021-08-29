@@ -6,9 +6,9 @@ function TrackCep({ events }) {
     if (!events || events.length === 0) return null
     return (
         <>
-            <p><strong>CEP encontrado!</strong></p>
+            <p>CEP encontrado!</p>
         </>
-    )
+    );
 };
 
 export default TrackCep;
