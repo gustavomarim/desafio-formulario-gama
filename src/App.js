@@ -15,6 +15,8 @@ function App() {
   // Seta todos os valores dentro de objetos
   const [formValues, setFormValues] = useState({})
 
+  const [cpfError, setCpfError] = useState(false);
+
   const schema = yup.object().shape({
     nome: yup.string('Digite um nome válido'), //.required('Campo obrigatório'),
     cargoPretendido: yup.string('Digite um cargo válido'), //.required('Campo Profissão obrigatório'),
@@ -49,7 +51,6 @@ function App() {
   }
 
   const onSubmit = data => {
-    // console.log('dados do onSubmit', data);
     setFormValues(data);
   };
 
@@ -65,8 +66,6 @@ function App() {
     });
   };
 
-  console.log('formvalues completo', formValues);
-
   const createCandidate = async () => {
     console.log('você está no createCandidate')
     // mongodb+srv://GustavoDantas:190713@cluster0.bachh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
@@ -75,14 +74,11 @@ function App() {
       alert('Cadastro realizado com sucesso!')
       console.log('Requisição POST realizada com Sucesso!');
     } else {
-      alert('Cadastro não realizado!')
+      setCpfError(true);
+      alert('Cadastro não realizado!');
       console.log('Requisição POST negada!');
     }
   };
-
-  console.log('formvalues endereco', formValues.logradouro);
-  console.log('formvalues bairro', formValues.bairro);
-  console.log('formvalues cidade', formValues.cidade);
 
   return (
 
