@@ -1,5 +1,6 @@
 const Candidate = require('../models/Candidate');
 
+
 module.exports = {
     async register(req, res) {
 

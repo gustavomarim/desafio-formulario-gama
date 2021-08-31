@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:5000",
+            "url": "http://localhost:3001",
             "description": "ambiente de desenvolvimento"
         }
     ],
@@ -79,29 +79,29 @@
                                         "type": "string"
                                     }
                                 }
-                            }
-                        },
-                        "examples": {
-                            "Cadastro teste": {
-                                "value": {
-                                    "nome": "Gustavo Dantas",
-                                    "cargoPretendido": "Developer Front-end",
-                                    "dataNasc": "1995/07/04",
-                                    "estadoCivil": "Solteiro",
-                                    "sexo": "Masculino",
-                                    "logradouro": "Travessa Oceano",
-                                    "bairro": "Jardim São Savério",
-                                    "cidade": "SP",
-                                    "cpf": "00000000000",
-                                    "telefone1": "não possui",
-                                    "telefone2": "Não possui",
-                                    "celular": "00000000000",
-                                    "contato": "Gustavo",
-                                    "email": "email@exemplo.com",
-                                    "identidade": "000000000",
-                                    "cep": "04194-480",
-                                    "possuiVeiculo": "Sim",
-                                    "categoriaCNH": "B"
+                            },
+                            "examples": {
+                                "Cadastro teste": {
+                                    "value": {
+                                        "nome": "Gustavo Dantas",
+                                        "cargoPretendido": "Developer Front-end",
+                                        "dataNasc": "1995/07/04",
+                                        "estadoCivil": "Solteiro",
+                                        "sexo": "Masculino",
+                                        "logradouro": "Travessa Oceano",
+                                        "bairro": "Jardim São Savério",
+                                        "cidade": "SP",
+                                        "cpf": "00000000000",
+                                        "telefone1": "não possui",
+                                        "telefone2": "Não possui",
+                                        "celular": "00000000000",
+                                        "contato": "Gustavo",
+                                        "email": "email@exemplo.com",
+                                        "identidade": "000000000",
+                                        "cep": "04194-480",
+                                        "possuiVeiculo": "Sim",
+                                        "categoriaCNH": "B"
+                                    }
                                 }
                             }
                         }
