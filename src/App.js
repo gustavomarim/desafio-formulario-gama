@@ -70,7 +70,7 @@ function App() {
     console.log('você está no createCandidate')
     try {
       // mongodb+srv://GustavoDantas:190713@cluster0.bachh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-      const user = await axios.post('http://localhost:5000/register', formValues); // post recebe um obj
+      const user = await axios.post('http://localhost:3001/register', formValues); // post recebe um obj
       if (user.status === 200) {
         alert('Cadastro realizado com sucesso!')
         console.log('Requisição POST realizada com Sucesso!');
