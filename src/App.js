@@ -15,7 +15,7 @@ function App() {
   // Seta todos os valores dentro de objetos
   const [formValues, setFormValues] = useState({})
 
-  const [cpfError, setCpfError] = useState(false);
+  // const [cpfError, setCpfError] = useState(false);
 
   const schema = yup.object().shape({
     nome: yup.string('Digite um nome válido'), //.required('Campo obrigatório'),
@@ -48,10 +48,6 @@ function App() {
   const convertToArray = (obj) => {
     const arr = [obj]
     return arr
-  }
-
-  const onSubmit = data => {
-    setFormValues(data);
   };
 
   const fetchAddress = async () => {
@@ -66,6 +62,11 @@ function App() {
     });
   };
 
+  const onSubmit = data => {
+    setFormValues(data);
+    // createCandidate();
+  };
+
   const createCandidate = async () => {
     console.log('você está no createCandidate')
     try {
@@ -76,7 +77,7 @@ function App() {
         console.log('Requisição POST realizada com Sucesso!');
       }
     } catch (error) {
-      setCpfError(true);
+      // setCpfError(true);
       alert('Cadastro não realizado!');
       console.log('Requisição POST negada!');
     }
