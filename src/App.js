@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './App.css';
 import TrackCep from './components/TrackCep';
 import { useForm } from "react-hook-form";
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
+import schema from './validations/Validation';
 
 function App() {
 
@@ -14,30 +14,6 @@ function App() {
 
   // Seta todos os valores dentro de objetos
   const [formValues, setFormValues] = useState({})
-
-  // const [cpfError, setCpfError] = useState(false);
-
-  const schema = yup.object().shape({
-    nome: yup.string('Digite um nome válido'), //.required('Campo obrigatório'),
-    cargoPretendido: yup.string('Digite um cargo válido'), //.required('Campo Profissão obrigatório'),
-    dataNasc: yup.string(),
-    estadoCivil: yup.string(),
-    sexo: yup.string(),
-    // logradouro: yup.string(),//.required('Campo endereço obrigatório'),
-    // bairro: yup.string(),//.required('Campo Bairro obrigatório'),
-    cidade: yup.string('Digite uma cidade válida'),//.min(2, 'Cidade precisa de no mínimo 2 caracteres'),//.required('Campo Cidade obrigatório'),
-    cpf: yup.string().matches(/^(\d{3}){2}\d{3}\d{2}$/, 'Digite um CPF válido'),//.required('Campo CPF obrigatório'),
-    // telefone1: yup.string('Digite um número de telefone válido'),
-    // telefone2: yup.string('Digite um número de telefone válido'),
-    celular: yup.string('Digite um número de celular válido'),//.required('Campo celular obrigatório'),
-    contato: yup.string('Digite um nome de contato válido'),
-    email: yup.string('Digite um e-mail válido')
-      .email('Digite um email: ex...'),//.required('Campo e-mail Obrigatório'),
-    // identidade: yup.string('Digite um número de RG válido'),
-    cep: yup.string(),
-    possuiVeiculo: yup.string(),
-    categoriaCNH: yup.string(),
-  });
 
   // Instancias do Form Hook
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -63,13 +39,20 @@ function App() {
   };
 
   const onSubmit = data => {
-    setFormValues(data);
+    try {
+      setFormValues(data);
+      createCandidate();
+
+    } catch (error) {
+      console.log(error);
+    }
     // createCandidate();
   };
 
   const createCandidate = async () => {
     console.log('você está no createCandidate')
     try {
+      // onSubmit(formValues);
       // mongodb+srv://GustavoDantas:190713@cluster0.bachh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
       const user = await axios.post('http://localhost:3001/register', formValues); // post recebe um obj
       if (user.status === 200) {
@@ -92,9 +75,12 @@ function App() {
 
         <div className="half-box" >
           <label htmlFor="name">Nome Completo *</label>
-          <input {...register("nome")} placeholder="Digite seu nome completo" onChange={(e) => {
-            setFormValues({ ...formValues, nome: e.target.value })
-          }} />
+          <input {...register("nome")}
+            placeholder="Digite seu nome completo"
+            onChange={(e) => {
+              setFormValues({ ...formValues, nome: e.target.value })
+            }}
+          />
           {errors?.nome?.message}
         </div>
 
@@ -103,7 +89,8 @@ function App() {
           <input {...register("cargoPretendido")} placeholder="Digite o cargo que deseja se candidatar"
             onChange={(e) => {
               setFormValues({ ...formValues, cargoPretendido: e.target.value })
-            }} />
+            }}
+          />
           {errors?.cargoPretendido?.message}
         </div>
 
@@ -198,7 +185,8 @@ function App() {
           <input {...register("telefone1")} placeholder="Ex: (00) 0000-0000"
             onChange={(e) => {
               setFormValues({ ...formValues, telefone1: e.target.value })
-            }} />
+            }}
+          />
           {errors?.telefone1?.message}
         </div>
 
@@ -288,7 +276,7 @@ function App() {
 
         <div className="full-box">
           <input type="submit" id="btn-submit" value="Registrar"
-            onClick={() => createCandidate()} />
+            /* onClick={() => createCandidate()} */ />
         </div>
 
       </form>
