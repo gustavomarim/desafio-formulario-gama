@@ -15,7 +15,6 @@ Projeto criado durante o treinamento de desenvolvimento Fullstack - Start Tech -
 
 <p align="center">
  <a href="#status">Status</a> •
- <a href="#demonstracao">Demonstração</a> • 
  <a href="#funcionalidades">Funcionalidades</a> • 
  <a href="#tecnologias">Tecnologias</a> • 
  <a href="#autor">Autor</a> •
