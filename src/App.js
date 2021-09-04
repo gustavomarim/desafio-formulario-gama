@@ -46,13 +46,11 @@ function App() {
     } catch (error) {
       console.log(error);
     }
-    // createCandidate();
   };
 
   const createCandidate = async () => {
     console.log('você está no createCandidate')
     try {
-      // onSubmit(formValues);
       // mongodb+srv://GustavoDantas:190713@cluster0.bachh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
       const user = await axios.post('http://localhost:3001/register', formValues); // post recebe um obj
       if (user.status === 200) {
@@ -60,7 +58,6 @@ function App() {
         console.log('Requisição POST realizada com Sucesso!');
       }
     } catch (error) {
-      // setCpfError(true);
       alert('Cadastro não realizado!');
       console.log('Requisição POST negada!');
     }
@@ -226,8 +223,6 @@ function App() {
           {errors?.email?.message}
         </div>
 
-        {/* <h1 id="documentos">Documentos</h1> */}
-
         <div className="quarter-box">
           <label htmlFor="identidade">Identidade</label>
           <input {...register("identidade")} placeholder="Digite seu RG"
@@ -276,7 +271,7 @@ function App() {
 
         <div className="full-box">
           <input type="submit" id="btn-submit" value="Registrar"
-            /* onClick={() => createCandidate()} */ />
+          />
         </div>
 
       </form>
