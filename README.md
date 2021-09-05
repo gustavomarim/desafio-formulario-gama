@@ -87,7 +87,7 @@ Ferramentas utilizadas na construção do projeto:
 
 --- 
 
-<h4 id="autor">AUTOR</h4>
+<h3 id="autor">AUTOR</h3>
 
 <a href="https://github.com/gustavomarim">
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/66189039?s=400&u=491817b0d3a8d48be60c450631a950c9d49154b2&v=4" width="100px;" alt=""/>
@@ -102,7 +102,7 @@ Feito com ❤️ por Gustavo Dantas 👋🏽
  
  ---
  
-<h4 id="licença">LICENÇA 📄</h4>
+<h3 id="licença">LICENÇA 📄</h3>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/gustavomarim/formulario-gama/blob/master/LICENSE)
  
