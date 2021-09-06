@@ -106,7 +106,7 @@ Feito com ❤️ por Gustavo Dantas 👋🏽
  
 <h3 id="licença">LICENÇA 📄</h3>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/gustavomarim/formulario-gama/blob/master/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/gustavomarim/desafio-formulario-gama/blob/main/LICENSE)
  
 
 
