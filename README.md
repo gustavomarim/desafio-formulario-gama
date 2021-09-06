@@ -9,7 +9,7 @@
 
 Projeto criado durante o treinamento de desenvolvimento Fullstack - Start Tech - da Gama Academy, no qual foi proposto o desafio de criar uma landing page com um formulário de preenchimento de candidatura para a empresa de recrutamento e seleção JobsNet. Como requisitos da aplicação, foi integrado um validador de CEP através de uma API, e disponibilizada uma API Rest com a funcionalidade de cadastro dos candidatos armazenando em um banco de dados.
 
-**[Confira a Lading Page online neste link](https://formulario-gama.herokuapp.com)**.
+**[Confira a Lading Page no Heroku neste link](https://formulario-gama.herokuapp.com)**.
 
 
 ---
