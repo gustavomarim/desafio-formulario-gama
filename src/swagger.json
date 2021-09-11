@@ -1,0 +1,113 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API do projeto Formulário de Cadastro - Gama",
+        "description": "essa é a api do projeto Formulário de Cadastro - Gama",
+        "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3001",
+            "description": "ambiente de desenvolvimento"
+        }
+    ],
+    "paths": {
+        "/register": {
+            "post": {
+                "summary": "Cadastro de candidato",
+                "description": "Rota de cadastro de usuário, recebe: os principais dados para o cadastro de usuário",
+                "tags": [
+                    "candidato"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nome": {
+                                        "type": "string"
+                                    },
+                                    "cargoPretendido": {
+                                        "type": "string"
+                                    },
+                                    "dataNasc": {
+                                        "type": "string"
+                                    },
+                                    "estadoCivil": {
+                                        "type": "string"
+                                    },
+                                    "sexo": {
+                                        "type": "string"
+                                    },
+                                    "logradouro": {
+                                        "type": "string"
+                                    },
+                                    "bairro": {
+                                        "type": "string"
+                                    },
+                                    "cidade": {
+                                        "type": "string"
+                                    },
+                                    "cpf": {
+                                        "type": "string"
+                                    },
+                                    "telefone1": {
+                                        "type": "string"
+                                    },
+                                    "telefone2": {
+                                        "type": "string"
+                                    },
+                                    "celular": {
+                                        "type": "string"
+                                    },
+                                    "contato": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "identidade": {
+                                        "type": "string"
+                                    },
+                                    "cep": {
+                                        "type": "string"
+                                    },
+                                    "possuiVeiculo": {
+                                        "type": "string"
+                                    },
+                                    "categoriaCNH": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "Cadastro teste": {
+                                    "value": {
+                                        "nome": "Gustavo Dantas",
+                                        "cargoPretendido": "Developer Front-end",
+                                        "dataNasc": "1995/07/04",
+                                        "estadoCivil": "Solteiro",
+                                        "sexo": "Masculino",
+                                        "logradouro": "Travessa Oceano",
+                                        "bairro": "Jardim São Savério",
+                                        "cidade": "SP",
+                                        "cpf": "00000000000",
+                                        "telefone1": "não possui",
+                                        "telefone2": "Não possui",
+                                        "celular": "00000000000",
+                                        "contato": "Gustavo",
+                                        "email": "email@exemplo.com",
+                                        "identidade": "000000000",
+                                        "cep": "04194-480",
+                                        "possuiVeiculo": "Sim",
+                                        "categoriaCNH": "B"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

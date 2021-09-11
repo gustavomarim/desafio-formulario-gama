@@ -1,70 +1,112 @@
-# Getting Started with Create React App
+<h1 align="center"> Formulário de Cadastro - JobsNET</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+<img src="https://github.com/gustavomarim/imgs/blob/main/Form-Gama.png" alt="Landing Page - Gama" height="800px">
 
-In the project directory, you can run:
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Projeto criado durante o treinamento de desenvolvimento Fullstack - Start Tech - da Gama Academy, no qual foi proposto o desafio de criar uma landing page com um formulário de preenchimento de candidatura para a empresa de recrutamento e seleção JobsNet. Como requisitos da aplicação, foi integrado um validador de CEP através de uma API, e disponibilizada uma API Rest com a funcionalidade de cadastro dos candidatos armazenando em um banco de dados.
 
-### `npm test`
+**[Confira a Lading Page no Heroku neste link](https://formulario-gama.herokuapp.com)**.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<p align="center">
+ <a href="#status">Status</a> •
+ <a href="#funcionalidades">Funcionalidades</a> • 
+ <a href="#tecnologias">Tecnologias</a> • 
+ <a href="#autor">Autor</a> •
+ <a href="#licença">Licença</a> 
+</p>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<h4 id="status">🚧 STATUS - Formulário de Cadastro 🚀 Finalizado!!... 🚀</h4>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<h3 id="funcionalidades"> FUNCIONALIDADES:</h3>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+#### # Front-end
+  
+- [x] Validador de Campos 
+- [x] Auto-preenchimento dos campos Endereço
+- [x] Mensagem de erro para campo obrigatório
+- [x] Responsivo
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### # Back-end
 
-### Analyzing the Bundle Size
+- [x] API para validação de CPF 
+- [x] API Rest para armazenamento do cadastro em Banco de Dados
+- [x] Validação de campos obrigatórios
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### # Regra de Negócio 
 
-### Making a Progressive Web App
+- [x] Não há a possibilidade de dadastrar 2 candidatos com o mesmo CPF
+- [x] Campos Obrigatórios: CPF, Nome, Data Nascimento, Cep, Logradouro, Número, Bairro, Cidade, Email, Profissão e Celular
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### # Integração entre a Página de Formulário e o Back-end
 
-### Advanced Configuration
+- [x] Disponibilizar uma API Rest com a funcionalidade de cadastro de candidatos armazenando em um banco de dados.
+- [x] Disponibilizar a documentação dos recursos Web Services REST - Uso do Swagger
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+<h3 id="tecnologias"> 🛠 TECNOLOGIAS </h3>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Ferramentas utilizadas na construção do projeto:
+<br>
+
+##### # FRONT-END
+
+* [HTML](https://developer.mozilla.org/pt-BR/docs/Web/HTML)<br>
+* [CSS](https://developer.mozilla.org/pt-BR/docs/Web/CSS)<br>
+* [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)<br>
+* [React.JS](https://pt-br.reactjs.org)<br>
+* [Hook Forms Validation](https://react-hook-form.com)<br>
+* [Styled Components](https://styled-components.com)
+
+#### # BACK-END
+
+* [API CEP](https://viacep.com.br)<br>
+* [MongoDB Atlas - Cloud](https://www.mongodb.com/pt-br)<br>
+* [Node.JS](https://nodejs.org/en/)<br>
+<br>
+
+--- 
+
+<h3 id="autor">AUTOR</h3>
+
+<a href="https://github.com/gustavomarim">
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/66189039?s=400&u=491817b0d3a8d48be60c450631a950c9d49154b2&v=4" width="100px;" alt=""/>
+ <br />
+ <sub><b>Gustavo Dantas</b></sub></a> <a href="https://github.com/gustavomarim" title="GitHub">🚀</a>
+
+
+Feito com ❤️ por Gustavo Dantas 👋🏽
+
+ [![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/gustavodantasmarim/)](https://www.linkedin.com/in/gustavodantasmarim/) 
+ 
+ 
+ ---
+ 
+<h3 id="licença">LICENÇA 📄</h3>
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/gustavomarim/desafio-formulario-gama/blob/main/LICENSE)
+ 
+
+
