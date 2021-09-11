@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div id="main-container" onSubmit={handleSubmit} >
-      <h1>Cadastro de Currículo</h1>
+      <h1>Cadastro de Currículo - JobsNET</h1>
 
       <form id="register-form">
 
@@ -47,7 +47,7 @@ function App() {
           <label id="estado-civil">Estado Civíl</label>
           <select name="estadoCivil" onChange={handleInputChange}
             value={formValues.estadoCivil || ''} >
-            <option value="empty"></option>
+            <option value="estadoCivil-vazio"></option>
             <option value="solteiro">Solteiro</option>
             <option value="casado">Casado</option>
             <option value="divorciado">Divorciado</option>
@@ -58,7 +58,7 @@ function App() {
           <label >Sexo</label>
           <select name="sexo" onChange={handleInputChange}
             value={formValues.sexo || ''} >
-            <option value="empty"></option>
+            <option value="sexo-vazio"></option>
             <option value="masculino">Masculino</option>
             <option value="feminino">Feminino</option>
           </select>
@@ -126,7 +126,7 @@ function App() {
           <label id="veiculo">Possui Veículo</label>
           <select name="veiculo" onChange={handleInputChange}
             value={formValues.veiculo || ''}>
-            <option value="empty"></option>
+            <option value="veiculo-vazio"></option>
             <option value="veiculo-sim">Sim</option>
             <option value="veiculo-nao">Não</option>
           </select>
@@ -136,7 +136,7 @@ function App() {
           <label id="veiculo">Habilitação</label>
           <select name="categoriaCnh" onChange={handleInputChange}
             value={formValues.categoriaCnh || ''}>
-            <option value="categoria">Categoria</option>
+            <option value="categoria-vazia">Categoria</option>
             <option value="categoria-a">A</option>
             <option value="categoria-b">B</option>
             <option value="categoria-c">C</option>
