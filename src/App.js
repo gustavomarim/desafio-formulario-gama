@@ -1,35 +1,38 @@
 import { useState } from 'react';
 import './App.css';
+import axios from 'axios';
 
 function App() {
 
-  const [formValues, setFormValues] = useState({})
+  const [formValues, setFormValues] = useState({});
+  const [events, setEvents] = useState([]);
+
+  const convertToArray = (obj) => {
+    const arr = [obj]
+    return arr
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormValues({ ...formValues, [name]: value })
   }
 
-<<<<<<< HEAD
   const handleSubmit = (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
     const data = Object.fromEntries(formData) // Obj com todos os dados do form
-=======
-  
 
-  const fetchAddress = async () => {
-    const address = await axios.get(`https://viacep.com.br/ws/${formValues.cep}/json`);
-    const array = convertToArray(formValues.cep);
-    setEvents(array);
-    setFormValues({
-      ...formValues,
-      cidade: `${address.data.localidade}, ${address.data.uf}`,
-      logradouro: address.data.logradouro,
-      bairro: address.data.bairro
-    });
-  };
->>>>>>> feature-bugfix2
+    const fetchAddress = async () => {
+      const address = await axios.get(`https://viacep.com.br/ws/${formValues.cep}/json`);
+      const array = convertToArray(formValues.cep);
+      setEvents(array);
+      setFormValues({
+        ...formValues,
+        cidade: `${address.data.localidade}, ${address.data.uf}`,
+        logradouro: address.data.logradouro,
+        bairro: address.data.bairro
+      });
+    };
 
     console.log('handleSubmit', data);
   }
