@@ -26,6 +26,8 @@ function App() {
     return arr
   };
 
+  
+
   const fetchAddress = async () => {
     const address = await axios.get(`https://viacep.com.br/ws/${formValues.cep}/json`);
     const array = convertToArray(formValues.cep);
