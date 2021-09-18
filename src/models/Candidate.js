@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 // Validando campos do formulário pelo Back-end
 const CandidateSchema = new mongoose.Schema({
     nome: { type: String, unique: false, required: true }, 
-    cpf: { type: String, unique: true, required: true }, 
     cargoPretendido: { type: String, unique: false, required: true }, 
     dataNasc: { type: String, unique: false, required: true }, 
     logradouro: { type: String, unique: false, required: true },
@@ -11,6 +10,7 @@ const CandidateSchema = new mongoose.Schema({
     cep: { type: String, unique: false, required: true }, 
     email: { type: String, unique: true, required: true }, 
     celular: { type: String, unique: false, required: true }, 
+    cpf: { type: String, unique: true, required: true }, 
     
     estadoCivil: { type: String, unique: false, required: false }, 
     sexo: { type: String, unique: false, required: false }, 
