@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const Correio = require('node-correios');
 
-const correio = new Correio;
+const correio = new Correio();
 const app = express();
 const PORT = 3001;
 

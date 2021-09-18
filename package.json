@@ -19,7 +19,7 @@
     "nookies": "^2.5.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.13.0",
+    "react-hook-form": "^7.15.3",
     "react-scripts": "4.0.3",
     "swagger-ui-express": "^4.1.6",
     "to": "^0.2.9",
