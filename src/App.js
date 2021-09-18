@@ -1,6 +1,7 @@
-import { useState } from 'react';
 import './App.css';
 import axios from 'axios';
+// import TrackCep from './components/TrackCep';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // import * as yup from 'yup';
@@ -11,8 +12,6 @@ function App() {
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = data => console.log(data);;
-
   const [formValues, setFormValues] = useState({});
   const [events, setEvents] = useState([]);
 
@@ -20,17 +19,6 @@ function App() {
     const arr = [obj];
     return arr;
   };
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target
-  //   setFormValues({ ...formValues, [name]: value })
-  // }
-
-  // const handleSubmit = (e) => {
-  //   // e.preventDefault()
-  //   // const formData = new FormData(e.target)
-  //   // const data = Object.fromEntries(formData) // Obj com todos os dados do form
-  // }
 
   const fetchAddress = async () => {
     const address = await axios.get(`https://viacep.com.br/ws/${formValues.cep}/json`);
@@ -44,6 +32,34 @@ function App() {
     });
   };
 
+  const createCandidate = async (data) => {
+    try {
+      const user = await axios.post('http://localhost:3001/register', data);
+      if (user.status === 200) {
+        alert("Usuário Criado com sucesso!")
+      }
+    } catch (error) {
+      alert("Falha ao criar usuário")
+      console.log(error);
+    }
+  }
+
+  const onSubmit = data => {
+    console.log(data);
+
+    try {
+
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  // const handleSubmit = (e) => {
+  //   // e.preventDefault()
+  //   // const formData = new FormData(e.target)
+  //   // const data = Object.fromEntries(formData) // Obj com todos os dados do form
+  // }
+
   return (
     <div id="main-container" onSubmit={handleSubmit(onsubmit)} >
       <h1>Cadastro de Currículo - JobsNET</h1>
@@ -51,18 +67,19 @@ function App() {
       <form id="register-form">
 
         <div className="half-box" >
-          <label htmlFor="name">Nome</label>
+          <label htmlFor="nome">Nome</label>
           <input type="text" name="nome" id="nome"
             placeholder="Digite seu nome completo"
-            {...register("name")} />
-          <p>{errors.name?.message}</p>
+            {...register("nome")} />
+          <p>{errors.nome?.message}</p>
         </div>
 
         <div className="half-box" >
           <label htmlFor="cargo" >Cargo Pretendido</label>
-          <input type="text" name="cargo" id="cargo"
+          <input type="text" name="cargoPretendido" id="cargo"
+            placeholder="Digite o cargo que deseja se candidatar"
             {...register("cargo")} />
-          <p>{errors.cargo?.message}</p>
+          <p>{errors.cargoPretendido?.message}</p>
         </div>
 
         <div className="dataNascimento">
@@ -97,13 +114,15 @@ function App() {
         <div className="full-box" >
           <label>Endereço</label>
           <input type="text" name="logradouro" id="logradouro" placeholder="ex: Nome da Rua, nº. Bloco nº, AP nº"
-            {...register("logradouro")} />
+            {...register("logradouro")}
+          />
           <p>{errors.logradouro?.message}</p>
         </div>
 
         <div className="half-box" >
           <label >Bairro</label>
           <input type="text" name="bairro" id="bairro"
+            placeholder="Digite o seu bairro"
             {...register("bairro")} />
           <p>{errors.bairro?.message}</p>
         </div>
@@ -111,6 +130,7 @@ function App() {
         <div className="half-box" >
           <label >Cidade</label>
           <input type="text" name="cidade" id="cidade"
+            placeholder="Digite sua cidade"
             {...register("cidade")} />
           <p>{errors.cidade?.message}</p>
         </div>
@@ -118,13 +138,15 @@ function App() {
         <div className="triple-box">
           <label >CEP</label>
           <input type="text" name="cep" id="cep"
-            {...register("cep")} onBlur={fetchAddress()} />
+            placeholder="Ex:00000-000"
+            {...register("cep")} />
           <p>{errors.cep?.message}</p>
         </div>
 
         <div className="triple-box">
           <label >Telefone Fixo 1</label>
           <input type="text" name="telefone1" id="telefone1"
+            placeholder="Ex: (00) 0000-0000"
             {...register("telefone1")} />
           <p>{errors.telefone1?.message}</p>
         </div>
@@ -132,6 +154,7 @@ function App() {
         <div className="triple-box">
           <label >Telefone Fixo 2</label>
           <input type="text" name="telefone2" id="telefone2"
+            placeholder="Ex: (00) 0000-0000"
             {...register("telefone2")} />
           <p>{errors.telefone2?.message}</p>
         </div>
@@ -139,6 +162,7 @@ function App() {
         <div className="triple-box">
           <label >Celular</label>
           <input type="text" name="celular" id="celular"
+            placeholder="Ex: (00) 00000-0000"
             {...register("celular")} />
           <p>{errors.celular?.message}</p>
         </div>
@@ -146,13 +170,15 @@ function App() {
         <div className="triple-box">
           <label >Contato</label>
           <input type="text" name="contato" id="contato"
+            placeholder="Digite um nome para contato"
             {...register("contato")} />
           <p>{errors.contato?.message}</p>
         </div>
 
         <div className="triple-box">
           <label htmlFor="email">E-mail</label>
-          <input type="email" name="email" id="email" placeholder="ex: example@myname.com"
+          <input type="email" name="email" id="email"
+            placeholder="ex: example@myname.com"
             {...register("email")} />
           <p>{errors.email?.message}</p>
         </div>
@@ -160,6 +186,7 @@ function App() {
         <div className="quarter-box">
           <label htmlFor="identidade">Identidade</label>
           <input type="text" name="identidade" id="identidade"
+            placeholder="Digite o seu RG"
             {...register("identidade")} />
           <p>{errors.identidade?.message}</p>
         </div>
@@ -167,25 +194,25 @@ function App() {
         <div className="quarter-box">
           <label >CPF</label>
           <input type="text" name="cpf" id="cpf"
+            placeholder="Ex: 000.000.000-00"
             {...register("cpf")} />
-            <p>{errors.cpf?.message}</p>
+          <p>{errors.cpf?.message}</p>
         </div>
 
         <div className="quarter-box" >
           <label id="veiculo">Possui Veículo</label>
-          <select name="veiculo" 
-          {...register("veiculo")}>
-            <option value="veiculo-vazio"></option>
-            <option value="veiculo-sim">Sim</option>
+          <select name="possuiVeiculo"
+            {...register("veiculo")}>
             <option value="veiculo-nao">Não</option>
+            <option value="veiculo-sim">Sim</option>
           </select>
-            <p>{errors.veiculo?.message}</p>
+          <p>{errors.veiculo?.message}</p>
         </div>
 
         <div className="quarter-box" >
-          <label id="habilitacao">Habilitação</label>
-          <select 
-          {...register("habilitacao")}>
+          <label id="categoriaCNH" >categoria CNH</label>
+          <select name="categoriaCNH"
+            {...register("categoriaCNH")}>
             <option value="categoria-vazia">Categoria</option>
             <option value="categoria-a">A</option>
             <option value="categoria-b">B</option>
@@ -193,7 +220,7 @@ function App() {
             <option value="categoria-d">D</option>
             <option value="categoria-e">E</option>
           </select>
-            <p>{errors.habilitacao?.message}</p>
+          <p>{errors.habilitacao?.message}</p>
         </div>
 
         <div className="full-box">
