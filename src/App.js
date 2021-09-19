@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from './validations/Validation';
+import TrackCep from './components/TrackCep';
 
 function App() {
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -18,27 +19,25 @@ function App() {
     return arr;
   };
 
-  const fetchAddress = async () => {
-    const address = await axios.get(`https://viacep.com.br/ws/${formValues.cep}/json`);
-    const array = convertToArray(formValues.cep);
-    setEvents(array);
-    setFormValues({
-      ...formValues,
-      // cep: `${address.data.cep}`,
-      cidade: `${address.data.localidade}, ${address.data.uf}`,
-      logradouro: address.data.logradouro,
-      bairro: address.data.bairro
-    });
-  };
-
   const onSubmit = data => {
-    console.log("onSubmit", data.cep);
     try {
       setFormValues(data);
       createCandidate();
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const fetchAddress = async () => {
+    const address = await axios.get(`https://viacep.com.br/ws/${formValues.cep}/json`);
+    const array = convertToArray(formValues.cep);
+    setEvents(array);
+    setFormValues({
+      ...formValues,
+      cidade: `${address.data.localidade}, ${address.data.uf}`,
+      logradouro: address.data.logradouro,
+      bairro: address.data.bairro
+    });
   };
 
   const createCandidate = async () => {
@@ -125,57 +124,52 @@ function App() {
         </div>
 
         <div className="full-box" >
-          <label>Endereço</label>
-          <input placeholder="ex: Nome da Rua, nº. Bloco nº, AP nº"
-            {...register("logradouro")}
+          <label>Endereço *</label>
+          <input {...register("logradouro")}
+            placeholder="Ex: Rua, nº, Bloco"
             value={formValues.logradouro}
             onChange={(e) => {
               setFormValues({ ...formValues, logradouro: e.target.value })
-            }}
-          />
-          <p>{errors?.logradouro?.message}</p>
+            }} />
+          {errors?.logradouro?.message}
         </div>
 
         <div className="half-box" >
-          <label >Bairro</label>
-          <input
+          <label >Bairro *</label>
+          <input {...register("bairro")}
             placeholder="Digite o seu bairro"
-            {...register("bairro")}
             value={formValues.bairro}
             onChange={(e) => {
               setFormValues({ ...formValues, bairro: e.target.value })
-            }}
-          />
-          <p>{errors.bairro?.message}</p>
+            }} />
+          {errors?.bairro?.message}
         </div>
 
         <div className="half-box" >
-          <label >Cidade</label>
-          <input
-            placeholder="Digite sua cidade"
-            {...register("cidade")}
+          <label >Cidade *</label>
+          <input {...register("cidade")}
+            placeholder="Digite sua Cidade"
             value={formValues.cidade}
             onChange={(e) => {
               setFormValues({ ...formValues, cidade: e.target.value })
-            }}
-          />
-          <p>{errors.cidade?.message}</p>
+            }} />
+          {errors?.cidade?.message}
         </div>
 
         <div className="triple-box">
-          <label >CEP</label>
-          <input
-            id="cep" placeholder="Ex:00000-000"
-            {...register("cep")}
-            onBlur={() => {
-              fetchAddress();
-            }}
-            value={formValues.cep}
-            onChange={(e) => {
-              setFormValues({ ...formValues, cep: e.target.value })
-            }}
-          />
-          <p>{errors?.cep?.message}</p>
+          <div className="form-group">
+            <label >CEP *</label>
+            <input {...register("cep")}
+              id="cep" placeholder="Ex: 00000-000"
+              value={formValues.cep}
+              onBlur={() => fetchAddress()}
+              onChange={(e) => {
+                setFormValues({ ...formValues, cep: e.target.value })
+              }}
+            />
+            <TrackCep events={events} />
+            {errors?.cep?.message}
+          </div>
         </div>
 
         <div className="triple-box">
