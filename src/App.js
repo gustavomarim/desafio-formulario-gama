@@ -1,16 +1,21 @@
 import './App.css';
-import axios from 'axios';
 import { useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import schema from './Validations/Validation';
-import Input from './Components/InputText';
-import Form from 'react-bootstrap/Form';
-import Select from './Components/InputSelect';
-import InputFile from './Components/InputFile';
 
+import Input from './components/form/InputText';
+import Select from './components/form/InputSelect';
+import InputFile from './components/form/InputFile';
+import BtnSend from './components/button/BtnSend';
+
+import schema from './validation/Validation';
+
+import axios from 'axios';
+
+import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
+import RadioButton from './components/form/RadioButton';
 
 // inicializar server = nodemon server.js
 
@@ -22,11 +27,6 @@ function App() {
   const [formValues, setFormValues] = useState({});
   const [events, setEvents] = useState([]);
 
-  const convertToArray = (obj) => {
-    const arr = [obj];
-    return arr;
-  };
-
   const onSubmit = data => {
     try {
       setFormValues(data);
@@ -36,18 +36,19 @@ function App() {
     }
   };
 
-  const fetchAddress = async () => {
-    const address = await axios.get(`https://viacep.com.br/ws/${formValues.cep}/json`);
-    const array = convertToArray(formValues.cep);
-    setEvents(array);
-    setFormValues({
-      ...formValues,
-      cidade: `${address.data.localidade}, ${address.data.uf}`,
-      logradouro: address.data.logradouro,
-      bairro: address.data.bairro
-    });
-  };
+  // const fetchAddress = async () => {
+  //   const address = await axios.get(`https://viacep.com.br/ws/${formValues.cep}/json`);
+  //   const array = convertToArray(formValues.cep);
+  //   setEvents(array);
+  //   setFormValues({
+  //     ...formValues,
+  //     cidade: `${address.data.localidade}, ${address.data.uf}`,
+  //     logradouro: address.data.logradouro,
+  //     bairro: address.data.bairro
+  //   });
+  // };
 
+  // 
   const createCandidate = async () => {
     console.log('você está no createCandidate');
     try {
@@ -61,8 +62,6 @@ function App() {
       console.log('Requisição POST negada!');
     }
   }
-
-  console.log(formValues.cep);
 
   return (
     <>
@@ -123,7 +122,7 @@ function App() {
           options={['A', 'B', 'C', 'D', 'E']} />
 
         <InputFile textDescription="Anexe seu currículo." />
-        <Button variant="success">Cadastrar Perfil</Button>
+        <BtnSend id="btnEnviar" name="Cadastrar Perfil" />
       </Form>
     </>
   );

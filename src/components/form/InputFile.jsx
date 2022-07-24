@@ -15,7 +15,7 @@ const InputFile = ({ id, ...props }) => {
         {props.textDescription}
       </Form.Text>
     </div>
-  )
+  );
 }
 
 export default InputFile;
