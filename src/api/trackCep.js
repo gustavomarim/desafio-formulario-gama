@@ -19,4 +19,4 @@ app.get('/', (req, res) => {
             console.log(result);
         })
         .catch(error => { console.log(error) })
-})
+});
