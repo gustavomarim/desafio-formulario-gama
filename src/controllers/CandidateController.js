@@ -1,9 +1,7 @@
-const Candidate = require('../models/Candidate');
-
+const Candidate = require('../Models/Candidate');
 
 module.exports = {
     async register(req, res) {
-
         // Campos do formulário
         const {
             nome,
@@ -47,7 +45,6 @@ module.exports = {
         newCandidate.cep = cep;
         newCandidate.possuiVeiculo = possuiVeiculo;
         newCandidate.categoriaCNH = categoriaCNH;
-
 
         newCandidate.save((err, savedCandidate) => {
             if (err) {

@@ -3,8 +3,16 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import schema from './validations/Validation';
-import TrackCep from './components/TrackCep';
+import schema from './Validations/Validation';
+import Input from './Components/InputText';
+import Form from 'react-bootstrap/Form';
+import Select from './Components/InputSelect';
+import InputFile from './Components/InputFile';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+
+// inicializar server = nodemon server.js
 
 function App() {
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -57,236 +65,297 @@ function App() {
   console.log(formValues.cep);
 
   return (
-    <div id="main-container" onSubmit={handleSubmit(onSubmit)} >
-      <h1>Cadastro de Currículo - JobsNET</h1>
+    <>
+      <Form>
+        <Input id="nome" name="nome" type="text"
+          textDescription="Digite seu nome completo." />
 
-      <form id="register-form">
+        <Input id="cargo" name="cargo" type="text"
+          textDescription="Digite seu cargo pretendido." />
 
-        <div className="half-box" >
-          <label htmlFor="nome">Nome</label>
-          <input {...register("nome")}
-            placeholder="Digite seu nome completo"
-            onChange={(e) => {
-              setFormValues({ ...formValues, nome: e.target.value })
-            }}
-          />
-          <p>{errors?.nome?.message}</p>
-        </div>
+        <label>
+          <input id="dataNascimento" type="date" />
+          Data de Nascimento
+        </label>
 
-        <div className="half-box" >
-          <label htmlFor="cargo" >Cargo Pretendido</label>
-          <input
-            placeholder="Digite o cargo que deseja se candidatar"
-            {...register("cargoPretendido")}
-            onChange={(e) => {
-              setFormValues({ ...formValues, cargoPretendido: e.target.value })
-            }}
-          />
-          <p>{errors?.cargoPretendido?.message}</p>
-        </div>
+        <Select id="estadoCivil" name="estado civil"
+          options={['Solteiro', 'Casado', 'Divorciado']} />
 
-        <div className="dataNascimento">
-          <label htmlFor="nascimento">Data de Nascimento</label>
-          <input type="date"
-            {...register("dataNascimento")}
-            onChange={(e) => {
-              setFormValues({ ...formValues, dataNascimento: e.target.value })
-            }} />
-          <p>{errors?.dataNascimento?.message}</p>
-        </div>
+        <Select id="sexo" name="sexo" options={['Masculino', 'Feminino', 'Outros']} />
 
-        <div className="estado-civil">
-          <label id="estado-civil">Estado Civíl</label>
-          <select name="estadoCivil"
-            {...register("estadoCivil")}
-            onChange={(e) => {
-              setFormValues({ ...formValues, estadoCivil: e.target.value })
-            }}>
-            <option value="estadoCivil-vazio"></option>
-            <option value="solteiro">Solteiro</option>
-            <option value="casado">Casado</option>
-            <option value="divorciado">Divorciado</option>
-          </select>
-          <p>{errors?.estadoCivil?.message}</p>
-        </div>
+        <Input id="cep" name="CEP" type="text"
+          placeholder="00000-000" textDescription="Digite seu CEP." />
 
-        <div className="sexo">
-          <label >Sexo</label>
-          <select {...register("sexo")}
-            onChange={(e) => {
-              setFormValues({ ...formValues, sexo: e.target.value })
-            }} >
-            <option value="sexo-vazio"></option>
-            <option value="masculino">Masculino</option>
-            <option value="feminino">Feminino</option>
-          </select>
-          <p>{errors?.sexo?.message}</p>
-        </div>
+        <Input id="logradouro" name="endereço" type="text"
+          textDescription="Digite seu endereço residencial." />
 
-        <div className="full-box" >
-          <label>Endereço *</label>
-          <input {...register("logradouro")}
-            placeholder="Ex: Rua, nº, Bloco"
-            value={formValues.logradouro}
-            onChange={(e) => {
-              setFormValues({ ...formValues, logradouro: e.target.value })
-            }} />
-          {errors?.logradouro?.message}
-        </div>
+        <Input id="bairro" name="bairro" type="text"
+          textDescription="Digite seu bairro." />
 
-        <div className="half-box" >
-          <label >Bairro *</label>
-          <input {...register("bairro")}
-            placeholder="Digite o seu bairro"
-            value={formValues.bairro}
-            onChange={(e) => {
-              setFormValues({ ...formValues, bairro: e.target.value })
-            }} />
-          {errors?.bairro?.message}
-        </div>
+        <Input id="cidade" name="cidade" type="text"
+          textDescription="Digite a cidade onde você mora." />
 
-        <div className="half-box" >
-          <label >Cidade *</label>
-          <input {...register("cidade")}
-            placeholder="Digite sua Cidade"
-            value={formValues.cidade}
-            onChange={(e) => {
-              setFormValues({ ...formValues, cidade: e.target.value })
-            }} />
-          {errors?.cidade?.message}
-        </div>
+        <Input id="estado" name="estado" type="text"
+          placeholder="UF" textDescription="Digite o estado onde você mora." />
 
-        <div className="triple-box">
-          <div className="form-group">
-            <label >CEP *</label>
-            <input {...register("cep")}
-              id="cep" placeholder="Ex: 00000-000"
-              value={formValues.cep}
-              onBlur={() => fetchAddress()}
-              onChange={(e) => {
-                setFormValues({ ...formValues, cep: e.target.value })
-              }}
-            />
-            <TrackCep events={events} />
-            {errors?.cep?.message}
-          </div>
-        </div>
+        <Input id="telefone1" name="Telefone Fixo 1" type="text"
+          placeholder="(00) 0000-0000" textDescription="Digite um número para contato." />
 
-        <div className="triple-box">
-          <label >Telefone Fixo 1</label>
-          <input type="text" name="telefone1" id="telefone1"
-            placeholder="Ex: (00) 0000-0000"
-            {...register("telefone1")}
-            onChange={(e) => {
-              setFormValues({ ...formValues, telefone1: e.target.value })
-            }} />
-          <p>{errors?.telefone1?.message}</p>
-        </div>
+        <Input id="telefone2" name="Telefone Fixo 2" type="text"
+          placeholder="(00) 0000-0000" textDescription="Digite um número opcional para contato." />
 
-        <div className="triple-box">
-          <label >Telefone Fixo 2</label>
-          <input type="text" name="telefone2" id="telefone2"
-            placeholder="Ex: (00) 0000-0000"
-            {...register("telefone2")}
-            onChange={(e) => {
-              setFormValues({ ...formValues, telefone2: e.target.value })
-            }} />
-          <p>{errors?.telefone2?.message}</p>
-        </div>
+        <Input id="celular" name="celular" type="text"
+          placeholder="(00) 0 0000-0000" textDescription="Digite um celular para contato." />
 
-        <div className="triple-box">
-          <label >Celular</label>
-          <input type="text" name="celular" id="celular"
-            placeholder="Ex: (00) 00000-0000"
-            {...register("celular")}
-            onChange={(e) => {
-              setFormValues({ ...formValues, celular: e.target.value })
-            }} />
-          <p>{errors?.celular?.message}</p>
-        </div>
+        <Input id="email" name="email" type="email"
+          placeholder="name@example.com" textDescription="Digite seu e-mail" />
 
-        <div className="triple-box">
-          <label >Contato</label>
-          <input type="text" name="contato" id="contato"
-            placeholder="Digite um nome para contato"
-            {...register("contato")}
-            onChange={(e) => {
-              setFormValues({ ...formValues, contato: e.target.value })
-            }} />
-          <p>{errors?.contato?.message}</p>
-        </div>
+        <Input id="identidade" name="RG" type="text"
+          placeholder="00.000.000-0" textDescription="Digite o número do seu RG." />
 
-        <div className="triple-box">
-          <label htmlFor="email">E-mail</label>
-          <input type="email" name="email" id="email"
-            placeholder="ex: example@myname.com"
-            {...register("email")}
-            onChange={(e) => {
-              setFormValues({ ...formValues, email: e.target.value })
-            }} />
-          <p>{errors?.email?.message}</p>
-        </div>
+        <Input id="cpf" name="CPF" type="text"
+          placeholder="000.000.000-00" textDescription="Digite o seu CPF." />
 
-        <div className="quarter-box">
-          <label htmlFor="identidade">Identidade</label>
-          <input type="text" name="identidade" id="identidade"
-            placeholder="Digite o seu RG"
-            {...register("identidade")}
-            onChange={(e) => {
-              setFormValues({ ...formValues, identidade: e.target.value })
-            }} />
-          <p>{errors?.identidade?.message}</p>
-        </div>
+        <Select id="veiculo" name="Possui Veículo"
+          options={['Sim', 'Não']} />
 
-        <div className="quarter-box">
-          <label >CPF</label>
-          <input type="text" name="cpf" id="cpf"
-            placeholder="Ex: 000.000.000-00"
-            {...register("cpf")}
-            onChange={(e) => {
-              setFormValues({ ...formValues, cpf: e.target.value })
-            }} />
-          <p>{errors?.cpf?.message}</p>
-        </div>
+        <Select id="categoriaCNH" name="Categoria CNH"
+          options={['A', 'B', 'C', 'D', 'E']} />
 
-        <div className="quarter-box" >
-          <label id="veiculo">Possui Veículo</label>
-          <select name="possuiVeiculo"
-            {...register("possuiVeiculo")}
-            onChange={(e) => {
-              setFormValues({ ...formValues, possuiVeiculo: e.target.value })
-            }}>
-            <option value="veiculo-nao">Não</option>
-            <option value="veiculo-sim">Sim</option>
-          </select>
-          <p>{errors?.possuiVeiculo?.message}</p>
-        </div>
-
-        <div className="quarter-box" >
-          <label id="categoriaCNH" >categoria CNH</label>
-          <select name="categoriaCNH"
-            {...register("categoriaCNH")}
-            onChange={(e) => {
-              setFormValues({ ...formValues, categoriaCNH: e.target.value })
-            }}
-          >
-            <option value="categoria-vazia">Categoria</option>
-            <option value="categoria-a">A</option>
-            <option value="categoria-b">B</option>
-            <option value="categoria-c">C</option>
-            <option value="categoria-d">D</option>
-            <option value="categoria-e">E</option>
-          </select>
-          <p>{errors?.categoriaCNH?.message}</p>
-        </div>
-
-        <div className="full-box">
-          <input type="submit" id="btn-submit" value="Registrar" />
-        </div >
-
-      </form >
-    </div >
+        <InputFile textDescription="Anexe seu currículo." />
+        <Button variant="success">Cadastrar Perfil</Button>
+      </Form>
+    </>
   );
 }
 
 export default App;
+// <div id="main-container" onSubmit={handleSubmit(onSubmit)} >
+//   <h1>Cadastro de Currículo - JobsNET</h1>
+
+//   <form id="register-form">
+
+//     <div className="half-box" >
+//       <label htmlFor="nome">Nome</label>
+//       <input {...register("nome")}
+//         placeholder="Digite seu nome completo"
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, nome: e.target.value })
+//         }}
+//       />
+//       <p>{errors?.nome?.message}</p>
+//     </div>
+
+//     <div className="half-box" >
+//       <label htmlFor="cargo" >Cargo Pretendido</label>
+//       <input
+//         placeholder="Digite o cargo que deseja se candidatar"
+//         {...register("cargoPretendido")}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, cargoPretendido: e.target.value })
+//         }}
+//       />
+//       <p>{errors?.cargoPretendido?.message}</p>
+//     </div>
+
+//     <div className="dataNascimento">
+//       <label htmlFor="nascimento">Data de Nascimento</label>
+//       <input type="date"
+//         {...register("dataNascimento")}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, dataNascimento: e.target.value })
+//         }} />
+//       <p>{errors?.dataNascimento?.message}</p>
+//     </div>
+
+//     <div className="estado-civil">
+//       <label id="estado-civil">Estado Civíl</label>
+//       <select name="estadoCivil"
+//         {...register("estadoCivil")}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, estadoCivil: e.target.value })
+//         }}>
+//         <option value="estadoCivil-vazio"></option>
+//         <option value="solteiro">Solteiro</option>
+//         <option value="casado">Casado</option>
+//         <option value="divorciado">Divorciado</option>
+//       </select>
+//       <p>{errors?.estadoCivil?.message}</p>
+//     </div>
+
+//     <div className="sexo">
+//       <label >Sexo</label>
+//       <select {...register("sexo")}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, sexo: e.target.value })
+//         }} >
+//         <option value="sexo-vazio"></option>
+//         <option value="masculino">Masculino</option>
+//         <option value="feminino">Feminino</option>
+//       </select>
+//       <p>{errors?.sexo?.message}</p>
+//     </div>
+
+//     <div className="full-box" >
+//       <label>Endereço *</label>
+//       <input {...register("logradouro")}
+//         placeholder="Ex: Rua, nº, Bloco"
+//         value={formValues.logradouro}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, logradouro: e.target.value })
+//         }} />
+//       {errors?.logradouro?.message}
+//     </div>
+
+//     <div className="half-box" >
+//       <label >Bairro *</label>
+//       <input {...register("bairro")}
+//         placeholder="Digite o seu bairro"
+//         value={formValues.bairro}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, bairro: e.target.value })
+//         }} />
+//       {errors?.bairro?.message}
+//     </div>
+
+//     <div className="half-box" >
+//       <label >Cidade *</label>
+//       <input {...register("cidade")}
+//         placeholder="Digite sua Cidade"
+//         value={formValues.cidade}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, cidade: e.target.value })
+//         }} />
+//       {errors?.cidade?.message}
+//     </div>
+
+//     <div className="triple-box">
+//       <div className="form-group">
+//         <label >CEP *</label>
+//         <input {...register("cep")}
+//           id="cep" placeholder="Ex: 00000-000"
+//           value={formValues.cep}
+//           onBlur={() => fetchAddress()}
+//           onChange={(e) => {
+//             setFormValues({ ...formValues, cep: e.target.value })
+//           }}
+//         />
+//         <TrackCep events={events} />
+//         {errors?.cep?.message}
+//       </div>
+//     </div>
+
+//     <div className="triple-box">
+//       <label >Telefone Fixo 1</label>
+//       <input type="text" name="telefone1" id="telefone1"
+//         placeholder="Ex: (00) 0000-0000"
+//         {...register("telefone1")}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, telefone1: e.target.value })
+//         }} />
+//       <p>{errors?.telefone1?.message}</p>
+//     </div>
+
+//     <div className="triple-box">
+//       <label >Telefone Fixo 2</label>
+//       <input type="text" name="telefone2" id="telefone2"
+//         placeholder="Ex: (00) 0000-0000"
+//         {...register("telefone2")}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, telefone2: e.target.value })
+//         }} />
+//       <p>{errors?.telefone2?.message}</p>
+//     </div>
+
+//     <div className="triple-box">
+//       <label >Celular</label>
+//       <input type="text" name="celular" id="celular"
+//         placeholder="Ex: (00) 00000-0000"
+//         {...register("celular")}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, celular: e.target.value })
+//         }} />
+//       <p>{errors?.celular?.message}</p>
+//     </div>
+
+//     <div className="triple-box">
+//       <label >Contato</label>
+//       <input type="text" name="contato" id="contato"
+//         placeholder="Digite um nome para contato"
+//         {...register("contato")}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, contato: e.target.value })
+//         }} />
+//       <p>{errors?.contato?.message}</p>
+//     </div>
+
+//     <div className="triple-box">
+//       <label htmlFor="email">E-mail</label>
+//       <input type="email" name="email" id="email"
+//         placeholder="ex: example@myname.com"
+//         {...register("email")}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, email: e.target.value })
+//         }} />
+//       <p>{errors?.email?.message}</p>
+//     </div>
+
+//     <div className="quarter-box">
+//       <label htmlFor="identidade">Identidade</label>
+//       <input type="text" name="identidade" id="identidade"
+//         placeholder="Digite o seu RG"
+//         {...register("identidade")}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, identidade: e.target.value })
+//         }} />
+//       <p>{errors?.identidade?.message}</p>
+//     </div>
+
+//     <div className="quarter-box">
+//       <label >CPF</label>
+//       <input type="text" name="cpf" id="cpf"
+//         placeholder="Ex: 000.000.000-00"
+//         {...register("cpf")}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, cpf: e.target.value })
+//         }} />
+//       <p>{errors?.cpf?.message}</p>
+//     </div>
+
+//     <div className="quarter-box" >
+//       <label id="veiculo">Possui Veículo</label>
+//       <select name="possuiVeiculo"
+//         {...register("possuiVeiculo")}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, possuiVeiculo: e.target.value })
+//         }}>
+//         <option value="veiculo-nao">Não</option>
+//         <option value="veiculo-sim">Sim</option>
+//       </select>
+//       <p>{errors?.possuiVeiculo?.message}</p>
+//     </div>
+
+//     <div className="quarter-box" >
+//       <label id="categoriaCNH" >categoria CNH</label>
+//       <select name="categoriaCNH"
+//         {...register("categoriaCNH")}
+//         onChange={(e) => {
+//           setFormValues({ ...formValues, categoriaCNH: e.target.value })
+//         }}
+//       >
+//         <option value="categoria-vazia">Categoria</option>
+//         <option value="categoria-a">A</option>
+//         <option value="categoria-b">B</option>
+//         <option value="categoria-c">C</option>
+//         <option value="categoria-d">D</option>
+//         <option value="categoria-e">E</option>
+//       </select>
+//       <p>{errors?.categoriaCNH?.message}</p>
+//     </div>
+
+//     <div className="full-box">
+//       <input type="submit" id="btn-submit" value="Registrar" />
+//     </div >
+
+//   </form >
+// </div >
