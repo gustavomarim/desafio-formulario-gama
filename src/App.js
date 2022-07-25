@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Input from './components/form/InputText';
 import Select from './components/form/InputSelect';
 import InputFile from './components/form/InputFile';
+import RadioButton from './components/form/RadioButton';
 import BtnSend from './components/button/BtnSend';
 
 import schema from './validation/Validation';
@@ -14,8 +15,10 @@ import schema from './validation/Validation';
 import axios from 'axios';
 
 import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import RadioButton from './components/form/RadioButton';
+import Checkbox from './components/form/Checkbox';
 
 // inicializar server = nodemon server.js
 
@@ -66,64 +69,51 @@ function App() {
   return (
     <>
       <Form>
-        <Input id="nome" name="nome" type="text"
-          textDescription="Digite seu nome completo." />
+        <Input id="nome" name="nome" type="text" textDescription="Digite seu nome completo." />
 
-        <Input id="cargo" name="cargo" type="text"
-          textDescription="Digite seu cargo pretendido." />
+        <Input id="cargo" name="cargo" type="text" textDescription="Digite seu cargo pretendido." />
 
         <label>
           <input id="dataNascimento" type="date" />
           Data de Nascimento
         </label>
 
-        <Select id="estadoCivil" name="estado civil"
-          options={['Solteiro', 'Casado', 'Divorciado']} />
+        <Select id="estadoCivil" name="estado civil" options={['Casado', 'Divorciado', 'Separado', 'Solteiro', 'Viúvo']} />
 
-        <Select id="sexo" name="sexo" options={['Masculino', 'Feminino', 'Outros']} />
+        <Select id="sexo" name="sexo" options={['Masculino', 'Feminino']} />
 
-        <Input id="cep" name="CEP" type="text"
-          placeholder="00000-000" textDescription="Digite seu CEP." />
+        <Input id="cep" name="CEP" type="text" placeholder="00000-000" textDescription="Digite seu CEP." />
 
-        <Input id="logradouro" name="endereço" type="text"
-          textDescription="Digite seu endereço residencial." />
+        <Input id="logradouro" name="endereço" type="text" textDescription="Digite seu endereço residencial." />
 
-        <Input id="bairro" name="bairro" type="text"
-          textDescription="Digite seu bairro." />
+        <Input id="bairro" name="bairro" type="text" textDescription="Digite seu bairro." />
 
-        <Input id="cidade" name="cidade" type="text"
-          textDescription="Digite a cidade onde você mora." />
+        <Input id="cidade" name="cidade" type="text" textDescription="Digite a cidade onde você mora." />
 
-        <Input id="estado" name="estado" type="text"
-          placeholder="UF" textDescription="Digite o estado onde você mora." />
+        <Input id="estado" name="estado" type="text" textDescription="Digite o Estado onde você mora." />
 
-        <Input id="telefone1" name="Telefone Fixo 1" type="text"
-          placeholder="(00) 0000-0000" textDescription="Digite um número para contato." />
+        <Input id="telefone1" name="Telefone Fixo 1" type="text" placeholder="(00) 0000-0000" textDescription="Digite um número para contato." />
 
-        <Input id="telefone2" name="Telefone Fixo 2" type="text"
-          placeholder="(00) 0000-0000" textDescription="Digite um número opcional para contato." />
+        <Input id="telefone2" name="Telefone Fixo 2" type="text" placeholder="(00) 0000-0000" textDescription="Número opcional para contato." />
 
-        <Input id="celular" name="celular" type="text"
-          placeholder="(00) 0 0000-0000" textDescription="Digite um celular para contato." />
+        <Input id="celular" name="celular" type="text" placeholder="(00) 0 0000-0000" textDescription="Digite um celular para contato." />
 
-        <Input id="email" name="email" type="email"
-          placeholder="name@example.com" textDescription="Digite seu e-mail" />
+        <Input id="email" name="email" type="email" placeholder="name@example.com" textDescription="Digite seu e-mail." />
 
-        <Input id="identidade" name="RG" type="text"
-          placeholder="00.000.000-0" textDescription="Digite o número do seu RG." />
+        <Input id="identidade" name="RG" type="text" placeholder="00.000.000-0" textDescription="Digite o número do seu RG." />
 
-        <Input id="cpf" name="CPF" type="text"
-          placeholder="000.000.000-00" textDescription="Digite o seu CPF." />
+        <Input id="cpf" name="CPF" type="text" placeholder="000.000.000-00" textDescription="Digite o seu CPF." />
 
-        <Select id="veiculo" name="Possui Veículo"
-          options={['Sim', 'Não']} />
+        <Select id="veiculo" name="Possui Veículo" options={['Sim', 'Não']} />
 
-        <Select id="categoriaCNH" name="Categoria CNH"
-          options={['A', 'B', 'C', 'D', 'E']} />
+        <Select id="categoriaCNH" name="Categoria CNH" options={['A', 'B', 'C', 'D', 'E']} />
 
         <InputFile textDescription="Anexe seu currículo." />
+
+        <Checkbox label="Aceito os termos e condições." feedback="Você deve aceitar os termos antes de enviar o formulário" />
+
         <BtnSend id="btnEnviar" name="Cadastrar Perfil" />
-      </Form>
+      </Form >
     </>
   );
 }
