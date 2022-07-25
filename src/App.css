@@ -6,3 +6,10 @@
   color      : #323232;
   border     : none;
 }
+
+Form {
+  width        : 900px;
+  border       : solid 5px #ececec;
+  padding      : 20px;
+  border-radius: 10px;
+}
