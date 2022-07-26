@@ -1,16 +1,20 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useForm } from 'react-hook-form';
+// import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Input from './components/form/InputText';
 import Select from './components/form/InputSelect';
 import InputFile from './components/form/InputFile';
 import RadioButton from './components/form/RadioButton';
+import Checkbox from './components/form/Checkbox';
+import InputDate from './components/form/InputDate';
+import AlertComponent from './components/alert/AlertComponent';
 import BtnSend from './components/button/BtnSend';
 
-import schema from './validation/Validation';
+import useForm from './hooks/useForm';
+import schema from './hooks/FormValidation';
 
 import axios from 'axios';
 
@@ -18,26 +22,215 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Checkbox from './components/form/Checkbox';
 
 // inicializar server = nodemon server.js
 
+const optionCnhCategory = ['A', 'B', 'C', 'D', 'E'];
+const optionGender = ['Masculino', 'Feminino'];
+const optionMaritalStatus = ['Casado', 'Divorciado', 'Separado', 'Solteiro', 'Viúvo'];
+const optionVehicle = ['Sim', 'Não'];
+
 function App() {
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
-  });
+  const nome = useForm('stringOnly');
+  const cargo = useForm();
+  const dataNascimento = useForm();
+  const estadoCivil = useForm();
+  const sexo = useForm();
+  const cep = useForm('cep');
+  const endereco = useForm();
+  const bairro = useForm();
+  const cidade = useForm('stringOnly');
+  const estado = useForm('stringOnly');
+  const telefone1 = useForm();
+  const telefone2 = useForm();
+  const celular = useForm();
+  const email = useForm('email');
+  const rg = useForm();
+  const cpf = useForm('cpf');
+  const possuiVeiculo = useForm();
+  const categoriaCNH = useForm();
 
-  const [formValues, setFormValues] = useState({});
-  const [events, setEvents] = useState([]);
-
-  const onSubmit = data => {
-    try {
-      setFormValues(data);
-      createCandidate();
-    } catch (error) {
-      console.log(error);
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (nome.validate() && cep.validate() && cidade.validate() && estado.validate() && email.validate() && cpf.validate()) {
+      console.log('Enviar');
+      return <AlertComponent variant="success" message="Cadastro Realizado com sucesso!" />
+    } else {
+      console.log('Não enviar');
     }
-  };
+  }
+
+  return (
+    <>
+      <Form onSubmit={handleSubmit} >
+        <Input
+          label="Nome"
+          id="nome"
+          type="text"
+          textDescription="Digite seu nome completo."
+          {...nome}
+        />
+
+        <Input
+          id="Cargo"
+          type="text"
+          label="Cargo Desejado"
+          textDescription="Digite seu cargo pretendido."
+          {...cargo}
+        />
+
+        <InputDate
+          id="dataNascimento"
+          label="Data de Nascimento"
+          {...dataNascimento}
+        />
+
+        <Select
+          id="estadoCivil"
+          name="estado civil"
+          options={optionMaritalStatus}
+          {...estadoCivil}
+        />
+
+        <Select
+          id="Sexo"
+          name="sexo"
+          options={optionGender}
+          {...sexo}
+        />
+
+        <Input
+          label="CEP"
+          id="cep"
+          type="text"
+          placeholder="00000-000"
+          textDescription="Digite seu CEP."
+          {...cep}
+        />
+
+        <Input
+          label="Endereço"
+          id="logradouro"
+          type="text"
+          textDescription="Digite seu endereço residencial."
+          {...endereco}
+        />
+
+        <Input
+          label="Bairro"
+          id="bairro"
+          type="text"
+          textDescription="Digite seu bairro."
+          {...bairro}
+        />
+
+        <Input
+          label="Cidade"
+          id="cidade"
+          type="text"
+          textDescription="Digite a cidade onde você mora."
+          {...cidade}
+        />
+
+        <Input
+          label="Estado"
+          id="estado"
+          type="text"
+          textDescription="Digite o Estado onde você mora."
+          {...estado}
+        />
+
+        <Input
+          label="Telefone Fixo 1"
+          id="telefone1"
+          type="text"
+          placeholder="(00) 0000-0000"
+          textDescription="Digite um número para contato."
+          {...telefone1}
+        />
+
+        <Input
+          label="Telefone Fixo 2"
+          id="telefone2"
+          type="text"
+          placeholder="(00) 0000-0000"
+          textDescription="Número opcional para contato."
+          {...telefone2}
+        />
+
+        <Input
+          label="celular"
+          id="celular"
+          type="text"
+          placeholder="(00) 0 0000-0000"
+          textDescription="Digite um celular para contato."
+          {...celular}
+        />
+
+        <Input
+          label="Email"
+          id="email"
+          type="email"
+          placeholder="name@example.com"
+          textDescription="Digite seu e-mail."
+          {...email}
+        />
+
+        <Input
+          label="RG"
+          id="identidade"
+          type="text"
+          placeholder="00.000.000-0"
+          textDescription="Digite o número do seu RG."
+          {...rg}
+        />
+
+        <Input
+          label="CPF"
+          id="cpf"
+          type="text"
+          placeholder="000.000.000-00"
+          textDescription="Digite o seu CPF."
+          {...cpf}
+        />
+
+        <Select
+          id="veiculo"
+          name="Possui Veículo"
+          options={optionVehicle}
+          {...possuiVeiculo}
+        />
+
+        <Select
+          id="categoriaCNH"
+          name="Categoria CNH"
+          options={optionCnhCategory}
+          {...categoriaCNH}
+        />
+
+        {/* <InputFile textDescription="Anexe seu currículo." />
+
+        <Checkbox label="Aceito os termos e condições." feedback="Você deve aceitar os termos antes de enviar o formulário" /> */}
+
+        <BtnSend
+          id="btnEnviar"
+          name="Cadastrar Perfil"
+        />
+      </Form >
+    </>
+  );
+}
+
+export default App;
+
+// function onSubmit(data) {
+  //   try {
+  //     setFormValues(data);
+  //     createCandidate();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   // const fetchAddress = async () => {
   //   const address = await axios.get(`https://viacep.com.br/ws/${formValues.cep}/json`);
@@ -51,74 +244,27 @@ function App() {
   //   });
   // };
 
-  // 
-  const createCandidate = async () => {
-    console.log('você está no createCandidate');
-    try {
-      const user = await axios.post('http://localhost:3001/register', formValues);
-      if (user.status === 200) {
-        alert('Cadastro realizado com sucesso!');
-        console.log('Requisição POST realizada com Sucesso!');
-      }
-    } catch (error) {
-      alert('Cadastro não realizado!');
-      console.log('Requisição POST negada!');
-    }
-  }
+  // const createCandidate = async () => {
+  //   console.log('você está no createCandidate');
+  //   try {
+  //     const user = await axios.post('http://localhost:3001/register', formValues);
+  //     if (user.status === 200) {
+  //       alert('Cadastro realizado com sucesso!');
+  //       console.log('Requisição POST realizada com Sucesso!');
+  //     }
+  //   } catch (error) {
+  //     alert('Cadastro não realizado!');
+  //     console.log('Requisição POST negada!');
+  //   }
+  // }
 
-  return (
-    <>
-      <Form>
-        <Input id="nome" name="nome" type="text" textDescription="Digite seu nome completo." />
+  // const { register, handleSubmit, formState: { errors } } = useForm({
+  //   resolver: yupResolver(schema)
+  // });
 
-        <Input id="cargo" name="cargo" type="text" textDescription="Digite seu cargo pretendido." />
+  // const onSubmit = data => console.log(data);
 
-        <label>
-          <input id="dataNascimento" type="date" />
-          Data de Nascimento
-        </label>
 
-        <Select id="estadoCivil" name="estado civil" options={['Casado', 'Divorciado', 'Separado', 'Solteiro', 'Viúvo']} />
-
-        <Select id="sexo" name="sexo" options={['Masculino', 'Feminino']} />
-
-        <Input id="cep" name="CEP" type="text" placeholder="00000-000" textDescription="Digite seu CEP." />
-
-        <Input id="logradouro" name="endereço" type="text" textDescription="Digite seu endereço residencial." />
-
-        <Input id="bairro" name="bairro" type="text" textDescription="Digite seu bairro." />
-
-        <Input id="cidade" name="cidade" type="text" textDescription="Digite a cidade onde você mora." />
-
-        <Input id="estado" name="estado" type="text" textDescription="Digite o Estado onde você mora." />
-
-        <Input id="telefone1" name="Telefone Fixo 1" type="text" placeholder="(00) 0000-0000" textDescription="Digite um número para contato." />
-
-        <Input id="telefone2" name="Telefone Fixo 2" type="text" placeholder="(00) 0000-0000" textDescription="Número opcional para contato." />
-
-        <Input id="celular" name="celular" type="text" placeholder="(00) 0 0000-0000" textDescription="Digite um celular para contato." />
-
-        <Input id="email" name="email" type="email" placeholder="name@example.com" textDescription="Digite seu e-mail." />
-
-        <Input id="identidade" name="RG" type="text" placeholder="00.000.000-0" textDescription="Digite o número do seu RG." />
-
-        <Input id="cpf" name="CPF" type="text" placeholder="000.000.000-00" textDescription="Digite o seu CPF." />
-
-        <Select id="veiculo" name="Possui Veículo" options={['Sim', 'Não']} />
-
-        <Select id="categoriaCNH" name="Categoria CNH" options={['A', 'B', 'C', 'D', 'E']} />
-
-        <InputFile textDescription="Anexe seu currículo." />
-
-        <Checkbox label="Aceito os termos e condições." feedback="Você deve aceitar os termos antes de enviar o formulário" />
-
-        <BtnSend id="btnEnviar" name="Cadastrar Perfil" />
-      </Form >
-    </>
-  );
-}
-
-export default App;
 // <div id="main-container" onSubmit={handleSubmit(onSubmit)} >
 //   <h1>Cadastro de Currículo - JobsNET</h1>
 
